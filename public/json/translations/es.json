@@ -1,0 +1,54 @@
+{
+
+    "app": "********* COMPONENTE NAVEGACION ************",
+    "app.empresa.nombre": "Acertijo",
+    "app.empresa.website": "https://acertijo.dev",
+    "app.empresa.correo": "jmiranda@acertijo.dev",
+    "app.empresa.leyenda": "Derechos reservados.",
+
+    "app.navegacion": "********* COMPONENTE NAVEGACION ************",
+    "app.idioma.nombre": "Español",
+    "app.idioma.abreviatura": "ES",
+    "app.titulo": "Mapa-Tesalia",
+    "app.menu.filtro": "Filtro",
+    "app.menu.opciones": "Opciones",
+    "app.menu.funcionario": "Funcionario",
+    "app.menu.contrasena": "Contraseña",
+    "app.menu.cerrarSession": "Cerrar Sesión",
+    "app.menu.buscar.placeholder": "Buscar ubicación",
+
+    "app.componente.contrasena": "********* COMPONENTE CONTRASEÑA ************",
+    "app.componente.contrasena.titulo": "Funcionario",
+    "app.componente.contrasena.titulo.titulo": "Datos del Funcionario",
+    "app.componente.contrasena.codigo.title": "Codigo",
+    "app.componente.contrasena.codigo.placeholder": "Enter your code employe",
+    "app.componente.contrasena.nombre.title": "Nombre",
+    "app.componente.contrasena.nombre.placeholder": "Enter your first name",
+    "app.componente.contrasena.apellido.title": "Apellido",
+    "app.componente.contrasena.apellido.placeholder": "Enter your second name",
+    "app.componente.contrasena.email.title": "Email",
+    "app.componente.contrasena.email.placeholder": "Enter email",
+    "app.componente.contrasena.contrasena.title": "Password",
+    "app.componente.contrasena.contrasena.placeholder": "Enter your own Password",
+    "app.componente.contrasena.contrasena.infoAdicional": "La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula, al menos una mayúscula y al menos un caracter no alfanumérico.",
+    "app.componente.contrasena.recontrasena.title": "Re-Password",
+    "app.componente.contrasena.recontrasena.placeholder": "Enter your own Password",
+    "app.componente.contrasena.recontrasena.infoAdicional": "La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula, al menos una mayúscula y al menos un caracter no alfanumérico.",
+    "app.componente.contrasena.boton.cancel": "Cancelar",
+    "app.componente.contrasena.boton.guardar": "Guardar",
+
+    "app.componente.login": "********* COMPONENTE LOGIN ************",
+    "app.componente.login.titulo": "Ingresar",
+    "app.componente.login.email.titulo": "Correo",
+    "app.componente.login.email.placeholder": "Ingresa tu correo",
+    "app.componente.login.contrasena.titulo": "Contraseña",
+    "app.componente.login.contrasena.placeholder": "Ingresa la contraseña",
+    "app.componente.login.contrasena.infoAdicional": "Por tu seguridad, no compartas contraseña con nadie.",
+    "app.componente.login.registro": "Si no tienes cuenta?",
+    "app.componente.login.registro.link": "Creala aqui.",
+    "app.componente.login.olvido": "Olvidaste tú contraseña",
+    "app.componente.login.boton.ingresar": "Ingresar"
+    
+    
+
+}

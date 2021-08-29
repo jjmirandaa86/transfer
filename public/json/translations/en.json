@@ -1,0 +1,54 @@
+{
+
+    "app": "EN - ********* COMPONENTE NAVEGACION ************",
+    "app.empresa.nombre": "EN - Acertijo",
+    "app.empresa.website": "EN - https://acertijo.dev",
+    "app.empresa.correo": "EN - jmiranda@acertijo.dev",
+    "app.empresa.leyenda": "EN - Derechos reservados.",
+
+    "app.navegacion": "EN - ********* COMPONENTE NAVEGACION ************",
+    "app.idioma.nombre": "EN - English",
+    "app.idioma.abreviatura": "EN - EN",
+    "app.titulo": "EN - Mapa-Tesalia",
+    "app.menu.filtro": "EN - Filtro",
+    "app.menu.opciones": "EN - Opciones",
+    "app.menu.funcionario": "EN - Funcionario",
+    "app.menu.contrasena": "EN - Contraseña",
+    "app.menu.cerrarSession": "EN - Cerrar Sesión",
+    "app.menu.buscar.placeholder": "EN - Buscar ubicación",
+
+    "app.componente.contrasena": "EN - ********* COMPONENTE CONTRASEÑA ************",
+    "app.componente.contrasena.titulo": "EN - Funcionario",
+    "app.componente.contrasena.titulo.titulo": "EN - Datos del Funcionario",
+    "app.componente.contrasena.codigo.title": "EN - Codigo",
+    "app.componente.contrasena.codigo.placeholder": "EN - Enter your code employe",
+    "app.componente.contrasena.nombre.title": "EN - Nombre",
+    "app.componente.contrasena.nombre.placeholder": "EN - Enter your first name",
+    "app.componente.contrasena.apellido.title": "EN - Apellido",
+    "app.componente.contrasena.apellido.placeholder": "EN - Enter your second name",
+    "app.componente.contrasena.email.title": "EN - Email",
+    "app.componente.contrasena.email.placeholder": "EN - Enter email",
+    "app.componente.contrasena.contrasena.title": "EN - Password",
+    "app.componente.contrasena.contrasena.placeholder": "EN - Enter your own Password",
+    "app.componente.contrasena.contrasena.infoAdicional": "EN - Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.",
+    "app.componente.contrasena.recontrasena.title": "EN - Re-Password",
+    "app.componente.contrasena.recontrasena.placeholder": "EN - Enter your own Password",
+    "app.componente.contrasena.recontrasena.infoAdicional": "EN - Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.",
+    "app.componente.contrasena.boton.cancel": "EN - Cancelar",
+    "app.componente.contrasena.boton.guardar": "EN - Guardar",
+
+    "app.componente.login": "EN - ********* COMPONENTE LOGIN ************",
+    "app.componente.login.titulo": "EN - Ingresar",
+    "app.componente.login.email.titulo": "EN - Correo",
+    "app.componente.login.email.placeholder": "EN - Ingresa tu correo",
+    "app.componente.login.contrasena.titulo": "EN - Contraseña",
+    "app.componente.login.contrasena.placeholder": "EN - Ingresa la contraseña",
+    "app.componente.login.contrasena.infoAdicional": "EN - We'll never share your email with anyone else.",
+    "app.componente.login.registro": "EN - Si no tienes cuenta?",
+    "app.componente.login.registro.link": "EN - Creala aqui.",
+    "app.componente.login.olvido": "EN - Olvidaste tú contraseña",
+    "app.componente.login.boton.ingresar": "EN - Ingresar"
+    
+    
+
+}
