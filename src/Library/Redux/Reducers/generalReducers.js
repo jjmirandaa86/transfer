@@ -4,16 +4,18 @@ export const generalInitialState = {
   filter: {
     dateInit: "",
     dateEnd: "",
-    typeEntry: 0,
-    statusExpensive: "",
+    bank: 0,
+    stateTransfer: "",
   },
   location: {
     country: [],
-    office: [],
     region: [],
+    centre: [],
+    office: [],
+    route: [],
   },
-  typeEntries: [],
-  states: [],
+  bank: [],
+  statesTransfer: [],
   app: {
     title: "App",
     ico: "media/ico/",
