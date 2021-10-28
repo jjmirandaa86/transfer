@@ -15,12 +15,11 @@ import LanguageDetector from "i18next-browser-languagedetector";
 
 export const HookLanguage = () => {
   const { i18n } = useTranslation();
+
   const dispatch = useDispatch();
   const languages = useSelector((store) => store.language);
 
-  const [selectedLenguage, setSelectedLenguage] = useState(
-    i18n.use(LanguageDetector).language
-  );
+  const [selectedLenguage, setSelectedLenguage] = useState("es");
 
   //Load state inicial
   useEffect(() => {

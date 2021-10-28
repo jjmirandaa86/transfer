@@ -3,9 +3,6 @@ import { TYPES } from "../Actions/userActions";
 export const userInitialState = {
   info: {},
   session: {},
-  ubication: {
-    idCountry: "EC",
-  },
 };
 
 export function userReducers(state = userInitialState, action) {

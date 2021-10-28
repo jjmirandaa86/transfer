@@ -31,7 +31,6 @@ export const messageInitialState = {
     hour: "",
     body: "",
     timeShow: 0,
-    state: false,
   },
 };
 

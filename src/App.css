@@ -9,6 +9,29 @@ body {
   background: hsl(200, 70, 11);
 }
 
+.all_screem {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 0;
+  margin-left: 0;
+  align-items: center;
+}
+
+.fondo_welcome {
+  background: url("https://img.goraymi.com/2018/07/12/ef111d196dcf66b3ecaa41353ceaf309_md.jpg");
+  /* background: url("https://img.freepik.com/foto-gratis/banner-sitio-web-gota-agua-sobre-fondo-cristal-windows_83196-797.jpg?size=626&ext=jpg"); */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: Copperplate, Papyrus, fantasy;
+  font-size: 110px;
+}
+
 .loader-background {
   width: 100%;
   height: 100%;

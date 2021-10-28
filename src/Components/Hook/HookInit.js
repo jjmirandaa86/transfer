@@ -11,7 +11,13 @@ import {
 } from "../../Library/Redux/Reducers/languageReducers";
 
 export const HookInit = () => {
-  const [loadComponents, setLoadComponents] = useState(true);
+  const [loadComponents, setLoadComponents] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoadComponents(true);
+    }, 2000);
+  }, []);
 
   return {
     loadComponents,

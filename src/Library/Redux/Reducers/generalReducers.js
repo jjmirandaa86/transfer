@@ -17,7 +17,7 @@ export const generalInitialState = {
   bank: [],
   statesTransfer: [],
   app: {
-    title: "App",
+    title: "App Tesalia Transfers",
     ico: "media/ico/",
     img: "media/img/",
     traslations: "json/translations",

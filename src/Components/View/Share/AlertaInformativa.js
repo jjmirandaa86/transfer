@@ -8,25 +8,41 @@ import { messageInitialState } from "../../../Library/Redux/Reducers/messageRedu
 
 export default function AlertaInformativa() {
   const dispatch = useDispatch();
-  const [showMsg, setShowMsg] = useState(
-    useSelector((store) => store.message.show.state)
-  );
-  const messageStore = useSelector((store) => store.message);
-  const type = useSelector((store) => store.message.show.type);
-  const typeError = messageStore.typeError.filter((el) => el.type === type);
+  const appStore = useSelector((store) => store.general.app);
+  const typeError = useSelector((store) => store.message.typeError);
+  const messageStore = useSelector((store) => store.message.show);
+
+  const errActual = typeError.filter((el) => el.type === messageStore.type);
+  console.log("-----------------");
+  console.log(errActual);
   const mensaje = typeError[0];
-  const appSelector = useSelector((store) => store.general.app);
+
+  const [showMsg, setShowMsg] = useState(true);
+  // const [controlShowMsg, setControlShowMsg] = useState(false);
 
   //ocultar el mensaje en automatico
   useEffect(() => {
+    console.log("----------------- true mensaje");
     setTimeout(() => {
       dispatch({
         type: TYPES.MESSAGE_DELETE,
         payload: messageInitialState,
       });
       setShowMsg(false);
-    }, messageStore.show.timeShow);
-  }, []);
+    }, 5000);
+  }, [showMsg]);
+
+  // //muestra cuando es llamado el mensaje
+  // useEffect(() => {
+  //   console.log("----------------- true mensaje");
+  //   setTimeout(() => {
+  //     dispatch({
+  //       type: TYPES.MESSAGE_DELETE,
+  //       payload: messageInitialState,
+  //     });
+  //     setShowMsg(false);
+  //   }, 5000);
+  // }, [controlShowMsg]);
 
   return (
     <>
@@ -49,7 +65,7 @@ export default function AlertaInformativa() {
                 <Row>
                   <Col xs={2}>
                     <img
-                      src={appSelector.ico + mensaje.img}
+                      src={appStore.ico + mensaje.img}
                       className="rounded mr-3"
                       alt={mensaje.name}
                       width={15}
@@ -57,16 +73,14 @@ export default function AlertaInformativa() {
                     />
                   </Col>
                   <Col xs={10}>
-                    <strong className="mr-auto">
-                      {messageStore.show.title}
-                    </strong>
+                    <strong className="mr-auto">{messageStore.title}</strong>
                   </Col>
                 </Row>
               </Toast.Header>
               <Toast.Body>
-                <div>{messageStore.show.body}</div>
+                <div>{messageStore.body}</div>
                 <div style={{ paddingTop: 12 }}>
-                  {messageStore.show.date} {" - "} {messageStore.show.hour}
+                  {messageStore.date} {" - "} {messageStore.hour}
                 </div>
               </Toast.Body>
             </Toast>
