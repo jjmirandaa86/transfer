@@ -9,7 +9,7 @@ export default function Fondo() {
   return (
     <>
       <Image
-        src={ruta + "fondo.jpg"}
+        src={ruta + "fondo2.jpg"}
         style={{
           height: tamanoHeight,
           width: tamanoWidth,

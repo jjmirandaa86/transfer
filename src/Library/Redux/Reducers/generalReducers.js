@@ -43,6 +43,12 @@ export const generalInitialState = {
 
 export function generalReducers(state = generalInitialState, action) {
   switch (action.type) {
+    case TYPES.SET_GENERAL_LOCATION_CENTRE:
+      return {
+        ...state,
+        location: { ...state.location, centre: action.payload.centre },
+      };
+
     case TYPES.SET_GENERAL_MONEY:
       return { ...state, money: action.payload };
 

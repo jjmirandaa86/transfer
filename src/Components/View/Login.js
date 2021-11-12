@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { HookLogin } from "../Hook/HookLogin";
 
 // //Componentes Grafico UI
+import Welcome from "./Share/Welcome";
 import Cargando from "../View/Share/Cargando";
 import Fondo from "../View/Share/Fondo";
 import LoginForm from "../View/Login/LoginForm";
@@ -16,6 +17,7 @@ import "../../App.css";
 
 const Login = () => {
   const {
+    loadComponents,
     form,
     errors,
     loading,
@@ -32,41 +34,51 @@ const Login = () => {
   return (
     <>
       <Fondo />
+      {mensaje && <AlertaInformativa />}
+
       {loading && (
         <div className="loader">
           <Cargando />
         </div>
       )}
-      {mensaje && <AlertaInformativa />}
-      {/* {response && <Redirect to="/main" />} */}
-      {!loading && (
-        <div className="container">
-          <div className="vh-100 justify-content-center align-items-center formLogin">
-            <Card
-              bg={style.cards.color}
-              text={
-                style.cards.letters.toLowerCase() === "light" ? "dark" : "white"
-              }
-            >
-              <FormHead />
-              <Card.Body>
-                <Card.Title className="text-center">
-                  {"Inicia Session"}
-                </Card.Title>
-                <Card.Text>
-                  <LoginForm
-                    handleChange={handleChange}
-                    handleSubmit={handleSubmit}
-                    handleBlur={handleBlur}
-                    form={form}
-                    errors={errors}
-                  />
-                </Card.Text>
-              </Card.Body>
-              <FormFooter />
-            </Card>
-          </div>
-        </div>
+      {/* Carga el componende de bienvenida */}
+      {!loadComponents && <Welcome />}
+
+      {/* Carga la ventana de login*/}
+      {loadComponents && (
+        <>
+          {!loading && (
+            <div className="container">
+              <div className="vh-100 justify-content-center align-items-center formLogin">
+                <Card
+                  bg={style.cards.color}
+                  text={
+                    style.cards.letters.toLowerCase() === "light"
+                      ? "dark"
+                      : "white"
+                  }
+                >
+                  <FormHead />
+                  <Card.Body>
+                    <Card.Title className="text-center">
+                      {"Inicia Session"}
+                    </Card.Title>
+                    <Card.Text>
+                      <LoginForm
+                        handleChange={handleChange}
+                        handleSubmit={handleSubmit}
+                        handleBlur={handleBlur}
+                        form={form}
+                        errors={errors}
+                      />
+                    </Card.Text>
+                  </Card.Body>
+                  <FormFooter />
+                </Card>
+              </div>
+            </div>
+          )}
+        </>
       )}
     </>
   );

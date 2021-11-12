@@ -1,17 +1,19 @@
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { regExpresion, routesApi } from "../../Helpers/Constantes";
+//Funciones
+import { getHoraActual, getFechaActual } from "../../Helpers/Funciones";
+import { getloginUser, getCenterUser } from "../Services/UserServices";
 
 //Agrego los REDUX
-import { TYPES } from "../../Library/Redux/Actions/userActions";
+import { TYPES as TYPES_USER } from "../../Library/Redux/Actions/userActions";
 // import { userInitialState } from "../../Library/Redux/Reducers/userReducers";
 import { TYPES as TYPES_GENERAL } from "../../Library/Redux/Actions/generalActions";
 // import { generalReducers } from "../../Library/Redux/Reducers/generalReducers";
 import { TYPES as TYPES_MESSAGE } from "../../Library/Redux/Actions/messageActions";
 // import { messageReducers } from "../../Library/Redux/Reducers/messageReducers";
-//Funciones
-import { getHoraActual, getFechaActual } from "../../Helpers/Funciones";
 
 export const HookLogin = () => {
   const dispatch = useDispatch();
@@ -24,14 +26,21 @@ export const HookLogin = () => {
     password: "",
   };
 
-  const [form, setForm] = useState(initialForm);
-  const [errors, setErrors] = useState({});
-  const [errorApi, setErrorApi] = useState(false);
+  const [form, setForm] = useState(initialForm); //Formulario
+  const [errors, setErrors] = useState({}); //Error Formulario
+  const [errorApi, setErrorApi] = useState(false); //Error API
 
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(false);
   const [showMensaje, setShowMensaje] = useState(false);
   const [mensaje, setMensaje] = useState({});
+  const [loadComponents, setLoadComponents] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoadComponents(true);
+    }, 2000);
+  }, []);
 
   //Cambiar los valores de lo Inputs.
   const handleChange = (e) => {
@@ -68,134 +77,113 @@ export const HookLogin = () => {
 
     if (Object.keys(errors).length === 0) {
       setLoading(true);
-      buildData();
+      loadUser();
       setLoading(false);
       setShowMensaje(true);
     }
   };
 
-  //async function buildData() {
-  const buildData = () => {
-    loadUser();
-    // loadCentre();
-    // loadRegion();
-    // loadCountry();
-    // loadOffice();
-    // loadRoute();
-    // loadBank();
-  };
-
   async function loadUser() {
-    const datosEnviado = {
-      idUser: form.idUser,
-      password: form.password,
-    };
+    var userData = await getloginUser(
+      form.idUser,
+      form.password,
+      routesApi.API + routesApi.USER_LOGIN
+    );
+    console.log(userData);
+    if (!Boolean(userData.data.err)) {
+      //USUARIO
+      const info = userData.data.data.info;
+      const session = userData.data.data.session;
+      setErrorApi(false);
+      seteaMensaje("S", "Login", "Success", 5000);
 
-    const requestAxios = {
-      method: "post",
-      url: routesApi.API + routesApi.USER_LOGIN,
-      data: datosEnviado,
-      responseType: "json",
-      credentials: "include",
-      mode: "no-cors",
-      headers: {
-        Accept: "*/*",
-      },
-    };
+      dispatch({
+        type: TYPES_USER.SET_USER_LOGIN_INFO,
+        payload: { info, session },
+      });
 
-    try {
-      let res = await axios(requestAxios);
+      console.log("redirige a otra pagina ");
+      return <Redirect to="/main" />;
 
-      console.log(">>>>>>>>>>>>>>>>>>>>>><<<");
-      console.log(res.data.err);
-      if (Boolean(res.data.err) === true) {
-        //***************************** */
-        //USUARIO
-        const info = res.data.data.info;
-        const session = res.data.data.session;
-
-        dispatch({
-          type: TYPES.SET_USER_LOGIN_INFO,
-          payload: { info, session },
-        });
-
-        seteaMensaje("S", "Login", "Success", 5000);
-        setErrorApi(false);
-      } else {
-        console.log(res);
-        seteaMensaje("E", "Error", res.data.msg.errorInfo[2], 5000);
-        setErrorApi(true);
-      }
-    } catch (err) {
-      seteaMensaje("E", "Error", err, 5000);
+      //carga los parametros del usuario
+      //loadCentre(info.idUser, session.api_token);
+      //loadBank(info.idCountry, session.api_token);
+      //loadRegion();
+      // loadCountry();
+      // loadOffice();
+      // loadRoute();
+    } else {
       setErrorApi(true);
+      seteaMensaje("E", "Error", userData.data.msg.errorInfo[2], 5000);
     }
   }
 
-  //   msg	Object { errorInfo: […] }
-  // errorInfo	[ "acertijo.dev", 0, "Usuario o contraseña invalida" ]
-  // 0	"acertijo.dev"
-  // 1	0
-  // 2	"Usuario o contraseña invalida"
-  // err	true
-  // data	null
+  // loadCountry
+  // console.log("Inicia el proceso de validación de usuario");
+  // var userData = await getCenterUser(
+  //   "EC",
+  //   "http://localhost:8000/api/country/id/",
+  //   "AwgxladTW4sczS6mT9ddZQZgAez1H8PtIR6vrYGyZSFaDUVu6abYMrZfJS9iPSFU5wp0XFDhSJy2Eeirj9mG2cFgLt7Z4dbs5GzpAFwcK7sT6sGZMTw2ej5NM9H6oX6cRWl9LlcURUch2lUDcDRNxnaL1LtZQvwyAfJzRBRForbuO2tZaNeKUKDM7CdNSVje0t6KbN7EszWnfaYqNzdI8PNiqTa0gwurgIF1bX0eVQG6GCu4OMOIrKI27CjcAm"
+  // );
+  // console.log(userData);
 
-  async function loadCentre() {
-    if (infoStore.idUser) {
+  async function loadCentre(idUser, api_token) {
+    /*
+    if (!errorApi) {
+      var userData = await getloginUser(
+        "http://localhost:8000/api/user/center/id/" + idUser,
+        token
+      );
+      console.log(userData);
+    } else {
+      seteaMensaje("E", "Error", "Error consulta api User", 5000);
+    }
+    */
+  }
+
+  const loadBank = (idCountry, api_token) => {
+    if (!errorApi) {
       const requestAxios = {
         method: "get",
-        url: "http://localhost:8000/api/user/center/id/" + infoStore.idUser,
+        url: routesApi.API + routesApi.BANK_COUNTRY + idCountry,
         responseType: "json",
         credentials: "include",
         mode: "no-cors",
         headers: {
           Accept: "*/*",
-          Authorization: `Bearer ${sessionStore.api_token}`,
+          Authorization: `Bearer ${api_token}`,
         },
       };
 
-      try {
-        let res = await axios(requestAxios);
-        //***************************** */
-        //CENTRE
-        const centre = res.data.data;
+      axios(requestAxios)
+        .then((res) => {
+          console.log(res);
+          return res;
+        })
+        .then((res) => {
+          if (!Boolean(res.data.err)) {
+            const centre = res.data.data;
+            //CENTRE
+            dispatch({
+              type: TYPES_GENERAL.SET_GENERAL_LOCATION_CENTRE,
+              payload: { centre },
+            });
 
-        console.log(centre);
-        // dispatch({
-        //   type: TYPES.SET_USER_LOGIN_INFO,
-        //   payload: { info, session },
-        // });
-      } catch (err) {
-        console.log(err);
-      }
+            seteaMensaje("S", "get Api-Centre", "Success", 5000);
+            setErrorApi(false);
+          } else {
+            seteaMensaje("E", "Error", res.data.msg.errorInfo[2], 5000);
+            setErrorApi(true);
+          }
+        })
+        .catch((err) => {
+          seteaMensaje("E", "Error", err, 5000);
+          setErrorApi(true);
+        })
+        .finally(() => console.log("finaliza"));
     } else {
-      console.log("Error>>>>>>>>>>>>>>>>>>>>>>>>>>>><");
+      seteaMensaje("E", "Error", "Error consulta api User", 5000);
     }
-  }
-
-  const loadBank = () => {
-    const requestAxios = {
-      method: "get",
-      url: routesApi.API + routesApi.BANK_COUNTRY + "EC",
-      responseType: "json",
-      credentials: "include",
-      mode: "no-cors",
-      headers: {
-        Accept: "*/*",
-        Authorization: `Bearer ${sessionStore.api_token}`,
-      },
-    };
-
-    axios(requestAxios).then((response) => {
-      if (response.status === 200) {
-        console.log(response);
-        //BANK
-        // dispatch({
-        //   type: TYPES_MESSAGE.SET_MESSAGE_SHOW,
-        //   payload: message,
-        // });
-      }
-    });
   };
 
   const loadMoney = () => {
@@ -225,7 +213,7 @@ export const HookLogin = () => {
           const session = user.session;
 
           dispatch({
-            type: TYPES.SET_USER_LOGIN_INFO,
+            type: TYPES_GENERAL.SET_GENERAL_MONEY,
             payload: { info, session },
           });
 
@@ -313,6 +301,7 @@ export const HookLogin = () => {
   };
 
   return {
+    loadComponents,
     form,
     errors,
     loading,

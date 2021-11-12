@@ -1,7 +1,7 @@
 import { Container, Spinner, Row, Col } from "react-bootstrap";
 import { HookWelcome } from "../../Hook/HookWelcome";
 
-export const Welcome = () => {
+const Welcome = () => {
   const { word } = HookWelcome();
   return (
     <>
@@ -11,3 +11,5 @@ export const Welcome = () => {
     </>
   );
 };
+
+export default Welcome;
