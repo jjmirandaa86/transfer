@@ -1,10 +1,16 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Image, Button } from "react-bootstrap";
 
 const IconButton = (props) => {
+  const styleStore = useSelector((store) => store.general.app.style);
   return (
     <>
-      <Button variant="primary" size={props.size} onClick={props.handleButton}>
+      <Button
+        variant={styleStore.button.color}
+        size={props.size}
+        onClick={props.handleButton}
+      >
         <Image
           src={props.img}
           style={{
