@@ -23,21 +23,21 @@ const NewTransfers = (props) => {
   const appStore = useSelector((store) => store.general.app);
 
   //Country
-  const countryStore = useSelector((store) => store.message.typeError);
-  const listCountry = countryStore.map((number) => {
+  const countryStore = useSelector((store) => store.general.location.country);
+  const listCountry = countryStore.map((el) => {
     return (
-      <option key={number.type} value={number.type.toLowerCase()}>
-        {number.name}{" "}
+      <option key={el.idCountry} value={el.name.toLowerCase()}>
+        {el.name}{" "}
       </option>
     );
   });
 
   //Bank
-  const bankStore = useSelector((store) => store.message.typeError);
-  const listBank = countryStore.map((number) => {
+  const bankStore = useSelector((store) => store.general.bank);
+  const listBank = bankStore.map((el) => {
     return (
-      <option key={number.type} value={number.type.toLowerCase()}>
-        {number.name}{" "}
+      <option key={el.idBank} value={el.name.toLowerCase()}>
+        {el.name}{" "}
       </option>
     );
   });

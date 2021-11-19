@@ -9,10 +9,16 @@ import NewTransfers from "../View/Menu/NewTransfers";
 import FindTransfers from "../View/Menu/FindTransfers";
 import DataUser from "../View/Menu/DataUser";
 
+import { HookMain } from "../Hook/HookMain";
+
 const Main = () => {
   const [showWindow, setShowWindow] = useState("M");
+
+  const {} = HookMain();
+
   const sessionStore = useSelector((store) => store.user.session);
   const infoStore = useSelector((store) => store.user.info);
+
   return (
     <>
       {/* valido el login, si no redirecciono a login */}

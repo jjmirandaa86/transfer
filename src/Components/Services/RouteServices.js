@@ -1,20 +1,17 @@
 import axios from "axios";
 
-export async function getloginUser(user, passwd, url) {
-  const datosEnviado = {
-    idUser: user,
-    password: passwd,
-  };
-
+export function getRoutes(arrayOffices, token, url) {
+  //POST
   const requestAxios = {
     method: "post",
     url: url,
-    data: datosEnviado,
+    data: arrayOffices,
     responseType: "json",
     credentials: "include",
     mode: "no-cors",
     headers: {
       Accept: "*/*",
+      Authorization: `Bearer ${token}`,
     },
   };
 
@@ -27,5 +24,5 @@ export async function getloginUser(user, passwd, url) {
 }
 
 export default {
-  getloginUser,
+  getRoutes,
 };

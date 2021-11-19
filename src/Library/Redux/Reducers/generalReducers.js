@@ -10,7 +10,7 @@ export const generalInitialState = {
   location: {
     country: [],
     region: [],
-    centre: [],
+    center: [],
     office: [],
     route: [],
   },
@@ -43,15 +43,49 @@ export const generalInitialState = {
 
 export function generalReducers(state = generalInitialState, action) {
   switch (action.type) {
-    case TYPES.SET_GENERAL_LOCATION_CENTRE:
+    case TYPES.SET_GENERAL_LOCATION_CENTER:
       return {
         ...state,
-        location: { ...state.location, centre: action.payload.centre },
+        location: { ...state.location, center: action.payload },
       };
 
     case TYPES.SET_GENERAL_MONEY:
-      return { ...state, money: action.payload };
+      return {
+        ...state,
+        money: action.payload.money,
+      };
 
+    case TYPES.SET_GENERAL_COUNTRY:
+      return {
+        ...state,
+        location: { ...state.location, country: action.payload },
+      };
+
+    case TYPES.SET_GENERAL_REGION:
+      return {
+        ...state,
+        location: { ...state.location, region: action.payload },
+      };
+
+    case TYPES.SET_GENERAL_OFFICE:
+      return {
+        ...state,
+        location: { ...state.location, office: action.payload },
+      };
+
+    case TYPES.SET_GENERAL_ROUTE:
+      return {
+        ...state,
+        location: { ...state.location, route: action.payload },
+      };
+
+    case TYPES.SET_GENERAL_BANK:
+      return {
+        ...state,
+        bank: action.payload,
+      };
+
+    //XXXXXXXXXXXXX
     case TYPES.SET_GENERAL_TYPEENTRIES:
       return { ...state, typeEntries: action.payload };
 

@@ -8,6 +8,7 @@ import Cargando from "./Components/View/Share/Cargando";
 import RouteMain from "./Components/View/RouteMain";
 import Main from "./Components/View/Main";
 import NewTransfers from "./Components/View/Menu/NewTransfers";
+import Pruebas from "./Components/View/Pruebas";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route exact path="/" children={<RouteMain />} />
             <Route exact path="/main" children={<Main />} />
             <Route exact path="/new" children={<NewTransfers />} />
+            <Route exact path="/prueba" children={<Pruebas />} />
           </Switch>
         </Router>
       </Suspense>

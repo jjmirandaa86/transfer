@@ -26,18 +26,21 @@ export const routesApi = {
   BANK: "---------------------BANK------------------",
   BANK_ALL: "bank/all",
   BANK_COUNTRY: "bank/country/",
+  BANK_COUNTRYS: "bank/country/ids/",
   BANK_CREATE: "bank",
   BANK_DELETE: "bank/",
 
   COUNTRY: "---------------------COUNTRY------------------",
   COUNTRY_ALL: "country/all",
   COUNTRY_FIND_ID: "country/id/",
+  COUNTRY_FIND_IDS: "country/ids/",
   COUNTRY_CREATE: "country",
   COUNTRY_DELETE: "country/",
 
   REGION: "---------------------REGION------------------",
   REGION_ALL: "region/all",
   REGION_FIND_ID: "region/id/",
+  REGION_FIND_IDS: "region/ids/",
   REGION_FIND_IDCOUNTRY: "region/country/",
   REGION_CREATE: "region",
   REGION_DELETE: "region/",
@@ -45,7 +48,17 @@ export const routesApi = {
   CENTER: "---------------------CENTER------------------",
   CENTER_ALL: "center/all",
   CENTER_FIND_ID: "center/id/",
+  CENTER_FIND_IDS: "center/ids/",
   CENTER_FIND_IDREGION: "region/region/",
   CENTER_CREATE: "center",
   CENTER_DELETE: "center/",
+
+  OFFICE: "---------------------OFFICE------------------",
+  OFFICE_FIND_IDS: "office/center/ids/",
+
+  ROUTE: "---------------------ROUTE------------------",
+  ROUTE_FIND_IDS: "route/office/ids/",
+
+  USERCENTER: "--------------USER CENTER------------------",
+  USERCENTER_FIND_IDUSER: "user/center/id/",
 };

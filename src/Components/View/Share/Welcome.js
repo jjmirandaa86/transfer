@@ -6,7 +6,7 @@ const Welcome = () => {
   return (
     <>
       <div className={"all_screem"} style={{ backgroundColor: "#000000" }}>
-        <span class="fondo_welcome">{word}</span>
+        <span className="fondo_welcome">{word}</span>
       </div>
     </>
   );

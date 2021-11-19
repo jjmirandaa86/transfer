@@ -26,7 +26,10 @@ const DataUser = () => {
                   <Col sm={6}>
                     <Form.Group controlId="formId">
                       <Form.Label>Codigo colaborador</Form.Label>
-                      <Form.Control type="text" value={infoStore.idUser} />
+                      <Form.Control
+                        type="text"
+                        defaultValue={infoStore.idUser}
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -34,13 +37,19 @@ const DataUser = () => {
                   <Col sm={6}>
                     <Form.Group controlId="formFirstName">
                       <Form.Label>Nombre</Form.Label>
-                      <Form.Control type="text" value={infoStore.firtsName} />
+                      <Form.Control
+                        type="text"
+                        defaultValue={infoStore.firtsName}
+                      />
                     </Form.Group>
                   </Col>
                   <Col sm={6}>
                     <Form.Group controlId="formLastName">
                       <Form.Label>Apellido</Form.Label>
-                      <Form.Control type="text" value={infoStore.lastName} />
+                      <Form.Control
+                        type="text"
+                        defaultValue={infoStore.lastName}
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -48,13 +57,19 @@ const DataUser = () => {
                   <Col sm={6}>
                     <Form.Group controlId="formPosition">
                       <Form.Label>Posición</Form.Label>
-                      <Form.Control type="text" value={infoStore.position} />
+                      <Form.Control
+                        type="text"
+                        defaultValue={infoStore.position}
+                      />
                     </Form.Group>
                   </Col>
                   <Col sm={6}>
                     <Form.Group controlId="formProfile">
                       <Form.Label>Perfil</Form.Label>
-                      <Form.Control type="text" value={infoStore.profile} />
+                      <Form.Control
+                        type="text"
+                        defaultValue={infoStore.profile}
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -62,7 +77,10 @@ const DataUser = () => {
                   <Col sm={6}>
                     <Form.Group controlId="formEmail">
                       <Form.Label>Correo Electronico</Form.Label>
-                      <Form.Control type="email" value={infoStore.email} />
+                      <Form.Control
+                        type="email"
+                        defaultValue={infoStore.email}
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -74,13 +92,19 @@ const DataUser = () => {
                   <Col sm={6}>
                     <Form.Group controlId="formDate">
                       <Form.Label>Ultima conexión</Form.Label>
-                      <Form.Control type="text" value={sessionStore.date} />
+                      <Form.Control
+                        type="text"
+                        defaultValue={sessionStore.date}
+                      />
                     </Form.Group>
                   </Col>
                   <Col sm={6}>
                     <Form.Group controlId="formHour">
                       <Form.Label>Hora</Form.Label>
-                      <Form.Control type="text" value={sessionStore.hour} />
+                      <Form.Control
+                        type="text"
+                        defaultValue={sessionStore.hour}
+                      />
                     </Form.Group>
                   </Col>
                 </Row>

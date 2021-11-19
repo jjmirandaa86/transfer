@@ -1,20 +1,15 @@
 import axios from "axios";
 
-export async function getloginUser(user, passwd, url) {
-  const datosEnviado = {
-    idUser: user,
-    password: passwd,
-  };
-
+export async function getUserCenter(token, url) {
   const requestAxios = {
-    method: "post",
+    method: "get",
     url: url,
-    data: datosEnviado,
     responseType: "json",
     credentials: "include",
     mode: "no-cors",
     headers: {
       Accept: "*/*",
+      Authorization: `Bearer ${token}`,
     },
   };
 
@@ -22,10 +17,10 @@ export async function getloginUser(user, passwd, url) {
     const data = axios(requestAxios);
     return data;
   } catch (err) {
-    return false;
+    return err;
   }
 }
 
 export default {
-  getloginUser,
+  getUserCenter,
 };
