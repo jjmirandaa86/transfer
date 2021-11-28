@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import { Table, Badge, Container, Row, Col } from "react-bootstrap";
 import { HookTransfer } from "../../Hook/HookTransfer";
 import TransferItem from "../Transfer/TransferItem";
-// import NavPagination from "../share/Pagination/NavPagination";
-// import RowPerPage from "../share/Pagination/RowPerPage";
-// import ShowRowFromTo from "../share/Pagination/ShowRowFromTo";
+import NavPagination from "../Share/Pagination/NavPagination";
+import RowPerPage from "../Share/Pagination/RowPerPage";
+import ShowRowFromTo from "../Share/Pagination/ShowRowFromTo";
 import Icon from "../Share/Icon";
 
 const Transfer = (props) => {
@@ -26,43 +26,43 @@ const Transfer = (props) => {
             <Icon img={routeImg + "excel.svg"} xheight={30} xwidth={30} />
           </Col>
         </Row>
-      </Container>
 
-      <Table responsive striped bordered hover size="sm">
-        <thead>
-          <tr>
-            <th>{datoHead.serieInvoice}</th>
-            <th>{datoHead.dateInvoice}</th>
-            <th>{datoHead.amount}</th>
-            <th>{datoHead.idTypeEntry}</th>
-            <th>{datoHead.state}</th>
-            <th>{datoHead.image}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {dato.length === 0 ? (
-            <tr>No hay datos</tr>
-          ) : (
-            <>
-              <TransferItem data={dato} />
-              <tr>
-                {/* <td colSpan="1">
-                  <NavPagination
-                    data={datoPagination}
-                    handleChangeUrl={handleChangeUrl}
-                  />
-                </td>
-                <td colSpan="3">
-                  <RowPerPage data={datoPagination} />{" "}
-                </td>
-                <td colSpan="2">
-                  <ShowRowFromTo data={datoPagination} />{" "}
-                </td> */}
-              </tr>
-            </>
-          )}
-        </tbody>
-      </Table>
+        <Table responsive striped bordered hover size="sm">
+          <thead>
+            <tr>
+              <th>{datoHead.created_at}</th>
+              <th>{datoHead.idBank}</th>
+              <th>{datoHead.idCustomer}</th>
+              <th>{datoHead.voucher}</th>
+              <th>{datoHead.amount}</th>
+              <th>{datoHead.actions}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {dato.length === 0 ? (
+              <tr>No hay datos</tr>
+            ) : (
+              <>
+                <TransferItem data={dato} />
+                <tr>
+                  <td colSpan="2">
+                    <NavPagination
+                      data={datoPagination}
+                      handleChangeUrl={handleChangeUrl}
+                    />
+                  </td>
+                  <td colSpan="3">
+                    <RowPerPage data={datoPagination} />{" "}
+                  </td>
+                  <td colSpan="1">
+                    <ShowRowFromTo data={datoPagination} />{" "}
+                  </td>
+                </tr>
+              </>
+            )}
+          </tbody>
+        </Table>
+      </Container>
     </>
   );
 };

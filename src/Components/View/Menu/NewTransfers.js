@@ -26,7 +26,7 @@ const NewTransfers = (props) => {
   const countryStore = useSelector((store) => store.general.location.country);
   const listCountry = countryStore.map((el) => {
     return (
-      <option key={el.idCountry} value={el.name.toLowerCase()}>
+      <option key={el.idCountry} value={el.idCountry}>
         {el.name}{" "}
       </option>
     );
@@ -36,7 +36,7 @@ const NewTransfers = (props) => {
   const bankStore = useSelector((store) => store.general.bank);
   const listBank = bankStore.map((el) => {
     return (
-      <option key={el.idBank} value={el.name.toLowerCase()}>
+      <option key={el.idBank} value={el.idBank}>
         {el.name}{" "}
       </option>
     );
@@ -62,14 +62,37 @@ const NewTransfers = (props) => {
                     {/* Country*/}
                     <Form.Group controlId="formCountry">
                       <Form.Label>Pais:</Form.Label>
-                      <Form.Control as={"select"}>{listCountry}</Form.Control>
+                      <Form.Control
+                        as={"select"}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="idCountry"
+                        value={form.idCountry}
+                        autoFocus
+                      >
+                        <option key={""} value={""}>
+                          {"Selecciona  Pais"}
+                        </option>
+                        {listCountry}
+                      </Form.Control>
                     </Form.Group>
                   </Col>
                   <Col sm={6}>
                     {/* Bank*/}
                     <Form.Group controlId="formBank" sm={6}>
                       <Form.Label>Banco:</Form.Label>
-                      <Form.Control as={"select"}>{listBank}</Form.Control>
+                      <Form.Control
+                        as={"select"}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="idBank"
+                        value={form.idBank}
+                      >
+                        <option key={0} value={0}>
+                          {"Selecciona  Banco"}
+                        </option>
+                        {listBank}
+                      </Form.Control>
                     </Form.Group>
                   </Col>
                 </Row>
@@ -81,6 +104,10 @@ const NewTransfers = (props) => {
                       <Form.Control
                         type="number"
                         placeholder="Ingrese codigo Cliente"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="idCustomer"
+                        value={form.idCustomer}
                       />
                     </Form.Group>
                   </Col>
@@ -91,6 +118,10 @@ const NewTransfers = (props) => {
                       <Form.Control
                         type="text"
                         placeholder="Ingrese el nombre Cliente"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="nameCustomer"
+                        value={form.nameCustomer}
                       />
                     </Form.Group>
                   </Col>
@@ -103,6 +134,10 @@ const NewTransfers = (props) => {
                       <Form.Control
                         type="number"
                         placeholder="Ingrese la serie de la factura"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="serieInvoice"
+                        value={form.serieInvoice}
                       />
                     </Form.Group>
                   </Col>
@@ -113,6 +148,10 @@ const NewTransfers = (props) => {
                       <Form.Control
                         type="number"
                         placeholder="Ingrese el monto"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="amount"
+                        value={form.amount}
                       />
                     </Form.Group>
                   </Col>
@@ -160,20 +199,6 @@ export default NewTransfers;
 // import { HookNewExpensive } from "../../Hook/HookNewExpensive";
 // import Cargando from "../share/Cargando";
 // import AlertaInformativa from "../share/AlertaInformativa";
-
-// const initialForm = {
-//   idExpense: 0,
-//   idCountry: "EC",
-//   idUser: 500857,
-//   idTypeEntry: 0,
-//   idSupplier: "",
-//   nameSupplier: "",
-//   serieInvoice: "",
-//   dateInvoice: "1900/01/01",
-//   amount: "",
-//   image: "",
-//   state: "A",
-// };
 
 // const NewExpensive = (props) => {
 

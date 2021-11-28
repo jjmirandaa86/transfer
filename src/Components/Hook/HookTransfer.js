@@ -1,46 +1,44 @@
 import axios from "axios";
 import { useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
+import { routesApi } from "../../Helpers/Constantes";
 
 export const HookTransfer = (props) => {
-  const r_api_token = useSelector((store) => store.user.session.token);
+  const token = useSelector((store) => store.user.session.api_token);
+  const idUser = useSelector((store) => store.user.info.idUser);
 
   const [dato, setDato] = useState([]);
-  const [url, setUrl] = useState(props.REACT_APP_EXPENSE_POST_USER_DATE);
+  const [url, setUrl] = useState(
+    routesApi.API + routesApi.TRANSFER_FIND_USER + idUser
+  );
   const [datoPagination, setDatoPagination] = useState([]);
   const [datoHead, setDatoHead] = useState({
-    idTransfer: "Gasto",
+    idTransfer: "#",
     idCountry: "Pais",
     idUser: "Empleado",
-    idBank: "Tipo Gasto",
-    idCustomer: "Proveedor",
+    idBank: "Banco",
+    idCustomer: "Cliente",
     nameCustomer: "Nombre",
-    vaucher: "Factura",
+    voucher: "Factura",
     amount: "Monto",
-    dateTranfer: "Fecha Factura",
+    //dateTranfer: "Fecha Factura",
     image: "Ver",
     state: "Estado",
     created_at: "Creación",
     updated_at: "Actualización",
+    actions: "Acciones",
   });
 
-  const datosEnviado = {
-    idCountry: "EC",
-    idUser: 500857,
-    dateFirst: "2020-01-01",
-    dateEnd: "2021-08-30",
-  };
-
   const cabeceraAxios = {
-    method: "post",
+    method: "get",
     url: url,
-    data: datosEnviado,
+    // data: datosEnviado,
     responseType: "json",
     credentials: "include",
     mode: "no-cors",
     headers: {
       Accept: "*/*",
-      Authorization: `Bearer ${r_api_token}`,
+      Authorization: `Bearer ${token}`,
     },
   };
 
@@ -51,11 +49,13 @@ export const HookTransfer = (props) => {
         //Si consulta con exito
         if (response.status === 200) {
           if (response.data.data) {
+            console.log(response);
             setDato(response.data.data);
             setDatoPagination({
               currentPage: response.data.current_page,
               fromPage: response.data.current_page,
               lastPage: response.data.last_page,
+              from: response.data.from,
               perPage: response.data.per_page,
               toPage: response.data.to,
               totalPage: response.data.total,

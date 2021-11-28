@@ -1,8 +1,25 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { regExpresion } from "../../Helpers/Constantes";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { regExpresion, routesApi } from "../../Helpers/Constantes";
 
-export const HookNewTransfers = (props, initialForm) => {
+export const HookNewTransfers = () => {
+  const tokenStore = useSelector((store) => store.user.session.api_token);
+  const idUserStore = useSelector((store) => store.user.info.idUser);
+
+  const initialForm = {
+    idTransfers: 0,
+    idCountry: "",
+    idCustomer: 0,
+    nameCustomer: "",
+    serieInvoice: "",
+    amount: "",
+    idBank: 0,
+    dateInvoice: new Date(),
+    image: "",
+    state: "I",
+  };
+
   const [form, setForm] = useState(initialForm);
   const [file, setFiles] = useState(null);
   const [errors, setErrors] = useState({});
@@ -48,7 +65,7 @@ export const HookNewTransfers = (props, initialForm) => {
     setForm({ ...form, [name]: value });
   };
 
-  //Pierde el foco de la pagina
+  //Pierde el foco de la pagina Inputs
   const handleBlur = (e) => {
     handleChange(e);
     setErrors(validationsForm(form));
@@ -71,18 +88,28 @@ export const HookNewTransfers = (props, initialForm) => {
   const validationsForm = (form) => {
     let errors = {};
 
+    //Validacion Pais
+    if (form.idCountry === "") {
+      errors.idCountry = "Favor selecciona el pais.";
+    }
+
+    //Validacion Banco
+    if (form.idBank === 0) {
+      errors.idBank = "Favor selecciona un banco.";
+    }
+
     //Validacion RUC / CEDULA
-    if (!regExpresion.NUMBERENTERO.test(form.idSupplier.trim())) {
+    if (!regExpresion.NUMBERENTERO.test(form.idCustomer)) {
       errors.idSupplier = "Favor valide, Solo acepta numeros.";
-    } else if (form.idSupplier.length != 10 && form.idSupplier.length != 13) {
+    } else if (form.idCustomer.length != 10 && form.idCustomer.length != 13) {
       errors.idSupplier = "Debe tener 10 o 13 digitos.";
     }
 
     //Validacion Nombre Proveedor
-    if (!form.nameSupplier.trim()) {
-      errors.nameSupplier = "Dato requerido.";
-    } else if (!regExpresion.NAME.test(form.nameSupplier.trim())) {
-      errors.nameSupplier = "Favor valide, Solo acepta letras.";
+    if (!form.nameCustomer.trim()) {
+      errors.nameCustomer = "Dato requerido.";
+    } else if (!regExpresion.NAME.test(form.nameCustomer.trim())) {
+      errors.nameCustomer = "Favor valide, Solo acepta letras.";
     }
 
     //Validacion Serie de la factura
@@ -92,13 +119,8 @@ export const HookNewTransfers = (props, initialForm) => {
       errors.serieInvoice = "Favor valide, Solo acepta numeros y Guion";
     }
 
-    //Validacion Fecha
-    if (!form.dateInvoice.trim()) {
-      errors.dateInvoice = "Dato requerido.";
-    }
-
     //Validacion del monto
-    if (!form.dateInvoice.trim()) {
+    if (!form.amount.trim()) {
       //!form.amount > 0
       //errors.amount = "Solo acepta punto, valor debe ser mayor a cero.";
       errors.amount = "Dato requerido.";
@@ -121,7 +143,6 @@ export const HookNewTransfers = (props, initialForm) => {
 
   //guarda File
   const uploadFile = () => {
-    console.log("entri");
     //construir la Url de la| imagen y directorio
     const dateFile = new Date();
     const month =
@@ -135,18 +156,18 @@ export const HookNewTransfers = (props, initialForm) => {
 
     //datos que envio en form / body
     let datosEnviado = new FormData();
-    datosEnviado.append("folder", "Expensive");
+    datosEnviado.append("folder", "Transfers");
     datosEnviado.append("year", dateFile.getFullYear().toString());
     datosEnviado.append("month", month);
     datosEnviado.append("day", day);
     datosEnviado.append("idCountry", form.idCountry);
-    datosEnviado.append("idUser", form.idUser);
-    datosEnviado.append("idSupplier", form.idSupplier);
+    datosEnviado.append("idCustomer", form.idCustomer);
+    datosEnviado.append("serieInvoice", form.serieInvoice);
     datosEnviado.append("file", file);
 
     const cabeceraAxios = {
       method: "post",
-      url: props.urlRouteApi_SAVEIMG,
+      url: routesApi.API + routesApi.TRANSFER_SAVE_IMAGE,
       data: datosEnviado,
       responseType: "json",
       credentials: "include",
@@ -154,7 +175,7 @@ export const HookNewTransfers = (props, initialForm) => {
       headers: {
         Accept: "*/*",
         "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${props.toquen}`,
+        Authorization: `Bearer ${tokenStore}`,
       },
     };
 
@@ -165,11 +186,8 @@ export const HookNewTransfers = (props, initialForm) => {
     axios(cabeceraAxios)
       .then((response) => {
         //Si consulta con exito
-        if (response.status === 200) {
-          console.log(response);
-          if (response.data.exito) {
-            saveExpensive(response.data.urlFile);
-          }
+        if (response.data.exito) {
+          saveTransfer(response.data.urlFile);
         } else {
           seteaMensajePersonalizado(
             "Error",
@@ -187,15 +205,14 @@ export const HookNewTransfers = (props, initialForm) => {
   };
 
   //guarda Expensive
-  const saveExpensive = (urlFile) => {
+  const saveTransfer = (urlFile) => {
     const datosEnviado = {
       idCountry: form.idCountry,
-      idUser: form.idUser,
-      idTypeEntry: form.idTypeEntry,
-      idSupplier: form.idSupplier,
-      nameSupplier: form.nameSupplier,
-      serieInvoice: form.serieInvoice,
-      dateInvoice: form.dateInvoice,
+      idUser: idUserStore,
+      idBank: form.idBank,
+      idCustomer: form.idCustomer,
+      nameCustomer: form.nameCustomer,
+      voucher: form.serieInvoice,
       amount: form.amount,
       image: urlFile,
       state: "I",
@@ -203,41 +220,28 @@ export const HookNewTransfers = (props, initialForm) => {
 
     const cabeceraAxios = {
       method: "post",
-      url: props.urlRouteApi_SAVE,
+      url: routesApi.API + routesApi.TRANSFER_SAVE,
       data: datosEnviado,
       responseType: "json",
       credentials: "include",
       mode: "no-cors",
       headers: {
         Accept: "*/*",
-        Authorization: `Bearer ${props.token}`,
+        Authorization: `Bearer ${tokenStore}`,
       },
     };
 
     setLoading(true);
     axios(cabeceraAxios)
       .then((response) => {
-        if (response.status === 200) {
-          if (response.data.msg) {
-            seteaMensajePersonalizado(
-              "Mensaje",
-              response.data.msg,
-              true,
-              false
-            );
-            setForm(initialForm);
-          } else {
-            seteaMensajePersonalizado(
-              "Error",
-              response.data.error.errorInfo[2],
-              true,
-              true
-            );
-          }
+        if (response.data.exito) {
+          seteaMensajePersonalizado("Mensaje", response.data.msg, true, false);
+          setForm(initialForm);
+          setFiles(null);
         } else {
           seteaMensajePersonalizado(
             "Error",
-            "No se ejecuto la consulta",
+            response.data.error.errorInfo[2],
             true,
             true
           );

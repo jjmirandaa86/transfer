@@ -2,10 +2,10 @@ import { TYPES } from "../Actions/generalActions";
 
 export const generalInitialState = {
   filter: {
-    dateInit: "",
-    dateEnd: "",
-    bank: 0,
-    stateTransfer: "",
+    dateInit: null,
+    dateEnd: null,
+    bankSelect: null,
+    stateTransferSelect: null,
   },
   location: {
     country: [],
@@ -85,6 +85,12 @@ export function generalReducers(state = generalInitialState, action) {
         bank: action.payload,
       };
 
+    case TYPES.SET_GENERAL_FILTER:
+      return {
+        ...state,
+        filter: action.payload,
+      };
+
     //XXXXXXXXXXXXX
     case TYPES.SET_GENERAL_TYPEENTRIES:
       return { ...state, typeEntries: action.payload };
@@ -93,9 +99,6 @@ export function generalReducers(state = generalInitialState, action) {
       return { ...state, states: action.payload };
 
     case TYPES.SET_GENERAL_INICIALICE_FILTER:
-      return { ...state, filter: action.payload };
-
-    case TYPES.SET_GENERAL_FILTER:
       return { ...state, filter: action.payload };
 
     default:

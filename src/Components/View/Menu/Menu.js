@@ -25,13 +25,21 @@ const Menu = (props) => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
+              <Nav.Link href="#" onClick={() => props.setShowWindow("M")}>
+                <Icon
+                  img={appStore.ico + "311-app.svg"}
+                  xheight={10}
+                  xwidth={10}
+                />{" "}
+                {" Inicio"}
+              </Nav.Link>
               <Nav.Link href="#new" onClick={() => props.setShowWindow("N")}>
                 <Icon img={appStore.ico + "add.svg"} xheight={10} xwidth={10} />{" "}
                 {" Nuevo"}
               </Nav.Link>
               <Nav.Link href="#find" onClick={() => props.setShowWindow("F")}>
                 <Icon
-                  img={appStore.ico + "controls3.svg"}
+                  img={appStore.ico + "controls2.svg"}
                   xheight={10}
                   xwidth={10}
                 />
@@ -48,7 +56,7 @@ const Menu = (props) => {
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#exit">
                   <Icon
-                    img={appStore.ico + "controls3.svg"}
+                    img={appStore.ico + "cancel.svg"}
                     xheight={10}
                     xwidth={10}
                   />

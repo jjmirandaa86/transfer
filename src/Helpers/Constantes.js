@@ -10,6 +10,7 @@ export const regExpresion = {
 
 export const routesApi = {
   API: "http://localhost:8000/api/",
+  IMAGEN: "http://localhost:8000/",
 
   LANGUAGE: "---------------------LANGUAGE------------------",
   LANGUAGE_ALL: "language/all",
@@ -61,4 +62,10 @@ export const routesApi = {
 
   USERCENTER: "--------------USER CENTER------------------",
   USERCENTER_FIND_IDUSER: "user/center/id/",
+
+  TRANSFER: "--------------TRANSFERS------------------",
+  TRANSFER_FIND_USER: "transfer/id/",
+  TRANSFER_SAVE_IMAGE: "transfer/save/image",
+  TRANSFER_SAVE: "transfer/save",
+  TRANSFER_CHANGE_STATUS: "transfer/status",
 };

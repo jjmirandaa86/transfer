@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { Container } from "react-bootstrap";
 
 import Menu from "../View/Menu/Menu";
 import Transfer from "./Transfer/Transfer";
@@ -13,8 +14,7 @@ import { HookMain } from "../Hook/HookMain";
 
 const Main = () => {
   const [showWindow, setShowWindow] = useState("M");
-
-  const {} = HookMain();
+  const { loadAll } = HookMain();
 
   const sessionStore = useSelector((store) => store.user.session);
   const infoStore = useSelector((store) => store.user.info);
@@ -41,7 +41,7 @@ const Main = () => {
           {showWindow === "D" && <DataUser setShowWindow={setShowWindow} />}
 
           {/* muestra grid transferencias */}
-          {showWindow === "M" && <Transfer />}
+          {showWindow === "M" && loadAll === true && <Transfer />}
         </>
       )}
 

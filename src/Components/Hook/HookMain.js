@@ -2,7 +2,12 @@ import axios from "axios";
 import { Redirect } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getHoraActual, getFechaActual } from "../../Helpers/Funciones";
+import {
+  getHoraActual,
+  getFechaActual,
+  getPrimerDiaMes,
+  getUltimoDiaMes,
+} from "../../Helpers/Funciones";
 import { routesApi } from "../../Helpers/Constantes";
 import { TYPES as TYPES_GENERAL } from "../../Library/Redux/Actions/generalActions";
 import { TYPES as TYPES_MESSAGE } from "../../Library/Redux/Actions/messageActions";
@@ -11,6 +16,7 @@ export const HookMain = () => {
   const dispatch = useDispatch();
   const sessionStore = useSelector((store) => store.user.session);
   const infoStore = useSelector((store) => store.user.info);
+  const [loadAll, setLoadAll] = useState(false);
 
   useEffect(() => {
     var arrayUserCenterDataTmp = {};
@@ -231,6 +237,22 @@ export const HookMain = () => {
           type: TYPES_GENERAL.SET_GENERAL_BANK,
           payload: data,
         });
+
+        // const filtro = {
+        //   dateInit: getPrimerDiaMes(),
+        //   dateEnd: getUltimoDiaMes(),
+        //   bankSelect: null,
+        //   stateTransferSelect: null,
+        // };
+        //===============================
+        //filtro
+        //===============================
+        // dispatch({
+        //   type: TYPES_GENERAL.SET_GENERAL_FILTER,
+        //   payload: filtro,
+        // });
+
+        setLoadAll(true);
       })
       .catch(function (error) {
         const message = {
@@ -249,5 +271,5 @@ export const HookMain = () => {
       });
   }, []);
 
-  return {};
+  return { loadAll };
 };

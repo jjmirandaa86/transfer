@@ -39,6 +39,14 @@ export const getFechaActual = () => {
   );
 };
 
+//*************** DEVUELVO FECHA FORMATEADA *********************
+export const getDateFormat = (date) => {
+  const fecha = new Date(date);
+  return (
+    fecha.getDate() + "." + (fecha.getMonth() + 1) + "." + fecha.getFullYear()
+  );
+};
+
 export const getPrimerDiaMes = () => {
   var date = new Date();
   return new Date(date.getFullYear(), date.getMonth(), 1);

@@ -1,49 +1,59 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+
 import Icon from "../Share/Icon";
 // import ExpensiveCard from "./ExpensiveCard";
-import { ToggleButtonGroup, ToggleButton } from "react-bootstrap";
+import { ToggleButtonGroup, ToggleButton, Button } from "react-bootstrap";
+import { getDateFormat } from "../../../Helpers/Funciones";
+import TransferSelect from "./TransferSelect";
 
 const TransferItem = (data) => {
+  const appStore = useSelector((store) => store.general.app);
+  const bankStore = useSelector((store) => store.general.bank);
+
   const [isHovering, setIsHovering] = useState(false);
   const [datoExpensive, setDatoExpensive] = useState({});
 
   const ListData = () => (
     <>
-      {data.data.map((element) => {
+      {data.data.map((el) => {
+        //extrae el banco
+        const bankSelected = bankStore.find((bl) => bl.idBank === el.idBank);
+
         return (
-          <tr key={element.idExpense}>
-            <td>{element.serieInvoice}</td>
-            <td>{element.dateInvoice}</td>
-            <td>$ {Number.parseFloat(element.amount).toFixed(2)}</td>
-            <td>{element.typeEntryName}</td>
-            <td>{element.stateName}</td>
+          <tr key={el.idTransfer}>
+            <td>{getDateFormat(el.created_at)}</td>
+            <td>{bankSelected.name}</td>
+            <td>{el.idCustomer + " - " + el.nameCustomer}</td>
+            <td>{el.voucher}</td>
+            <td>${Number.parseFloat(el.amount).toFixed(2)}</td>
             <td>
-              <ToggleButtonGroup type="checkbox" id={element.idExpense}>
-                <ToggleButton
-                  id={"id" + element.idExpense + 1}
-                  key={"key" + element.idExpense + 1}
+              <ToggleButtonGroup type="checkbox" id={el.idTransfer}>
+                <Button
+                  id={"id" + el.idTransfer + 1}
+                  key={"key" + el.idTransfer + 1}
                   value={1}
                   variant="outline-primary"
                   onClick={() => {
                     setIsHovering(true);
-                    setDatoExpensive(element);
+                    setDatoExpensive(el);
                   }}
                 >
-                  <Icon img={"/Media/Ico/search.svg"} />
-                </ToggleButton>
-                <ToggleButton
-                  id={"id" + element.idExpense + 2}
-                  key={"key" + element.idExpense + 2}
+                  <Icon img={appStore.ico + "search.svg"} />
+                </Button>
+                <Button
+                  id={"id" + el.idTransfer + 2}
+                  key={"key" + el.idTransfer + 2}
                   value={2}
                   variant="outline-primary"
                   onClick={() => {
                     setIsHovering(true);
-                    setDatoExpensive(element);
+                    setDatoExpensive(el);
                   }}
-                  disabled={element.state === "I" ? false : true}
+                  disabled={el.state === "I" ? false : true}
                 >
-                  <Icon img={"/Media/Ico/edit.svg"} />
-                </ToggleButton>
+                  <Icon img={appStore.ico + "edit.svg"} />
+                </Button>
               </ToggleButtonGroup>
             </td>
           </tr>
@@ -57,11 +67,7 @@ const TransferItem = (data) => {
       <ListData />
       {isHovering && (
         <>
-          {/* <ExpensiveCard
-            REACT_APP_EXPENSE_PUT_STATE={data.REACT_APP_EXPENSE_PUT_STATE}
-            data={datoExpensive}
-            setIsHovering={setIsHovering}
-          /> */}
+          <TransferSelect data={datoExpensive} setIsHovering={setIsHovering} />
         </>
       )}
     </>
