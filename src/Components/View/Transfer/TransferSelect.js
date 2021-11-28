@@ -26,8 +26,18 @@ const TransferSelect = (props) => {
     denyTransfer,
   } = HookTrasferSelect(props.data);
 
+  //Bank
   const bankStore = useSelector((store) => store.general.bank);
   const bankSelected = bankStore.find((bl) => bl.idBank === props.data.idBank);
+
+  //State
+  // const stateStore = useSelector((store) => store.general.state);
+  // const stateSelected = stateStore.find(
+  //   (bl) =>
+  //     bl.idCounrty === props.data.idCountry ||
+  //     bl.tableReference === "transfers" ||
+  //     bl.value === props.data.state
+  // );
 
   return (
     <>
@@ -120,6 +130,10 @@ const TransferSelect = (props) => {
                         <Row>
                           <Col>Monto:</Col>
                           <Col>{props.data.amount}</Col>
+                        </Row>
+                        <Row>
+                          <Col>Ruta:</Col>
+                          <Col>{props.data.route}</Col>
                         </Row>
                         <Row>
                           <Col>Estado:</Col>

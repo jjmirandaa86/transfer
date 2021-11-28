@@ -5,13 +5,19 @@ import { routesApi } from "../../Helpers/Constantes";
 
 export const HookTrasferSelect = (inicialState) => {
   const tokenStore = useSelector((store) => store.user.session.api_token);
+  const perfilStore = useSelector((store) => store.user.info.profile);
 
   const [data, setData] = useState(inicialState);
-  const [aprobador, setAprobador] = useState(true);
+  const [aprobador, setAprobador] = useState(false);
 
   //Zoom Img
   const [valorZoom, setValorZoom] = useState(70);
   const [zoomHeight, setZoomHeight] = useState(300);
+
+  useEffect(() => {
+    if (perfilStore === "ADM") setAprobador(true);
+    if (perfilStore === "APR") setAprobador(true);
+  }, []);
 
   const incrementZoomHeight = (operador) => {
     if (operador === "+") {

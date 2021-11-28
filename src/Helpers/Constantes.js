@@ -63,6 +63,9 @@ export const routesApi = {
   USERCENTER: "--------------USER CENTER------------------",
   USERCENTER_FIND_IDUSER: "user/center/id/",
 
+  STATES: "--------------STATES------------------",
+  STATES_FIND_IDCOUNTRYS: "states/country/ids",
+
   TRANSFER: "--------------TRANSFERS------------------",
   TRANSFER_FIND_USER: "transfer/id/",
   TRANSFER_SAVE_IMAGE: "transfer/save/image",

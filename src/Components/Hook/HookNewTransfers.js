@@ -15,6 +15,7 @@ export const HookNewTransfers = () => {
     serieInvoice: "",
     amount: "",
     idBank: 0,
+    route: 0,
     dateInvoice: new Date(),
     image: "",
     state: "I",
@@ -214,6 +215,7 @@ export const HookNewTransfers = () => {
       nameCustomer: form.nameCustomer,
       voucher: form.serieInvoice,
       amount: form.amount,
+      route: form.route,
       image: urlFile,
       state: "I",
     };

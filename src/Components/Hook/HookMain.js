@@ -238,6 +238,34 @@ export const HookMain = () => {
           payload: data,
         });
 
+        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        //Status
+
+        const requestAxios = {
+          method: "post",
+          url: routesApi.API + routesApi.STATES_FIND_IDCOUNTRYS,
+          data: { idsCountry: arrayCountryDataTmp },
+          responseType: "json",
+          credentials: "include",
+          mode: "no-cors",
+          headers: {
+            Accept: "*/*",
+            Authorization: `Bearer ${sessionStore.api_token}`,
+          },
+        };
+
+        return axios(requestAxios);
+      })
+      .then(function (response) {
+        const data = response.data.data;
+        //===============================
+        //States
+        //===============================
+        dispatch({
+          type: TYPES_GENERAL.SET_GENERAL_STATES,
+          payload: data,
+        });
+
         // const filtro = {
         //   dateInit: getPrimerDiaMes(),
         //   dateEnd: getUltimoDiaMes(),

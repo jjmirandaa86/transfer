@@ -42,6 +42,18 @@ const NewTransfers = (props) => {
     );
   });
 
+  //Route
+  const routeStore = useSelector((store) => store.general.location.route);
+  const listRoute = routeStore.map((el) => {
+    return (
+      <option key={el.idRoute} value={el.idRoute}>
+        {el.idRoute}
+        {"-"}
+        {el.name}
+      </option>
+    );
+  });
+
   return (
     <>
       <Container style={{ paddingTop: 20 }}>
@@ -158,8 +170,28 @@ const NewTransfers = (props) => {
                 </Row>
                 <Row sm="auto" className="mb-3">
                   <Col sm={6}>
+                    {/* ROute*/}
+                    <Form.Group controlId="formRoute">
+                      <Form.Label>Ruta:</Form.Label>
+                      <Form.Control
+                        as={"select"}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="route"
+                        value={form.route}
+                        autoFocus
+                      >
+                        <option key={0} value={0}>
+                          {"Selecciona Ruta"}
+                        </option>
+                        {listRoute}
+                      </Form.Control>
+                    </Form.Group>
+                  </Col>
+                  <Col sm={6}>
                     {/* image*/}
                     <Form.Group className="mb-3">
+                      <Form.Label>Imagen:</Form.Label>
                       <Form.Control
                         onChange={() => setFiles(inputRef.current.files[0])}
                         ref={inputRef}

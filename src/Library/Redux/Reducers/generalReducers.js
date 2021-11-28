@@ -15,7 +15,7 @@ export const generalInitialState = {
     route: [],
   },
   bank: [],
-  statesTransfer: [],
+  states: [],
   app: {
     title: "App Tesalia Transfers",
     ico: "media/ico/",
@@ -83,6 +83,12 @@ export function generalReducers(state = generalInitialState, action) {
       return {
         ...state,
         bank: action.payload,
+      };
+
+    case TYPES.SET_GENERAL_STATES:
+      return {
+        ...state,
+        states: action.payload,
       };
 
     case TYPES.SET_GENERAL_FILTER:
