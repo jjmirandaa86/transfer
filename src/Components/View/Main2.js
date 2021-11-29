@@ -6,7 +6,7 @@ import React, { useState } from "react";
 // import ExpensiveGraphicsLine from "./Graphics/ExpensiveGraphicsLine";
 // import Expensive from "./main/Expensive";
 //
-import FindParameter from "./Menu/FindParameter";
+//import FindParameter from "./Menu/FindParameter";
 // import ShowUser from "./Menu/ShowUser";
 
 const Main2 = () => {
@@ -47,7 +47,7 @@ const Main2 = () => {
       )} */}
 
       {/* Muestra la pantalla de filtro */}
-      {showWindow === "F" && <FindParameter setShowWindow={setShowWindow} />}
+      {/* {showWindow === "F" && <FindParameter setShowWindow={setShowWindow} />} */}
       {/* Muestra la pantalla de datos del usuario */}
       {/* {showWindow === "U" && <ShowUser setShowWindow={setShowWindow} />} */}
     </>
