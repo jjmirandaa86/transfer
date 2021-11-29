@@ -266,19 +266,25 @@ export const HookMain = () => {
           payload: data,
         });
 
-        // const filtro = {
-        //   dateInit: getPrimerDiaMes(),
-        //   dateEnd: getUltimoDiaMes(),
-        //   bankSelect: null,
-        //   stateTransferSelect: null,
-        // };
-        //===============================
-        //filtro
-        //===============================
-        // dispatch({
-        //   type: TYPES_GENERAL.SET_GENERAL_FILTER,
-        //   payload: filtro,
-        // });
+        const filtro = {
+          dateInit: getPrimerDiaMes(),
+          dateEnd: getUltimoDiaMes(),
+          countrySelect: "",
+          regionSelect: 0,
+          centerSelect: "",
+          officeSelect: "",
+          routeSelect: 0,
+          bankSelect: 0,
+          stateTransferSelect: 0,
+        };
+
+        // ===============================
+        // filtro
+        // ===============================
+        dispatch({
+          type: TYPES_GENERAL.SET_GENERAL_FILTER,
+          payload: filtro,
+        });
 
         setLoadAll(true);
       })

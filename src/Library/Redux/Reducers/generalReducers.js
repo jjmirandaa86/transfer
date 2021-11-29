@@ -4,6 +4,11 @@ export const generalInitialState = {
   filter: {
     dateInit: null,
     dateEnd: null,
+    countrySelect: null,
+    regionSelect: null,
+    centerSelect: null,
+    officeSelect: null,
+    routeSelect: null,
     bankSelect: null,
     stateTransferSelect: null,
   },
