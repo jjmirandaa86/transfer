@@ -5,7 +5,7 @@ import IconButton from "../Share/IconButton";
 import { HookFindTransfers } from "../../Hook/HookFindTransfers";
 
 const FindTransfers = (props) => {
-  const { handleSave } = HookFindTransfers();
+  const { handleSave, handleChange, filter } = HookFindTransfers();
 
   const appStore = useSelector((store) => store.general.app);
 
@@ -127,7 +127,7 @@ const FindTransfers = (props) => {
                         // onChange={handleChange}
                         // onBlur={handleBlur}
                         name="idCountry"
-                        // value={form.idCountry}
+                        value={filter.idCountry}
                         autoFocus
                       >
                         <option key={""} value={""}>

@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
 
 //Agrego los REDUX
 import { TYPES as TYPES_GENERAL } from "../../Library/Redux/Actions/generalActions";
@@ -6,6 +7,14 @@ import { TYPES as TYPES_GENERAL } from "../../Library/Redux/Actions/generalActio
 export const HookFindTransfers = () => {
   const dispatch = useDispatch();
   const countryStore = useSelector((store) => store.general.location.country);
+  const filterStore = useSelector((store) => store.general.filter);
+  const [filter, setFilter] = useState(filterStore);
+
+  //Cambiar los valores de lo Inputs.
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFilter({ ...filter, [name]: value });
+  };
 
   const handleSave = () => {
     const filtro = {
@@ -31,5 +40,7 @@ export const HookFindTransfers = () => {
 
   return {
     handleSave,
+    handleChange,
+    filter,
   };
 };
