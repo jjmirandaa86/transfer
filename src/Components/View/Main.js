@@ -11,6 +11,7 @@ import FindTransfers from "../View/Menu/FindTransfers";
 import DataUser from "../View/Menu/DataUser";
 
 import { HookMain } from "../Hook/HookMain";
+import AlertaInformativa from "./Share/AlertaInformativa";
 
 const Main = () => {
   const [showWindow, setShowWindow] = useState("M");
@@ -21,6 +22,7 @@ const Main = () => {
 
   return (
     <>
+      <AlertaInformativa />
       {/* valido el login, si no redirecciono a login */}
       {sessionStore.api_token === undefined ? (
         <>

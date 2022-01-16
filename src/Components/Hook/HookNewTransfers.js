@@ -1,11 +1,14 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { regExpresion, routesApi } from "../../Helpers/Constantes";
+import { TYPES as TYPES_MESSAGE } from "../../Library/Redux/Actions/messageActions";
+import { getHoraActual, getFechaActual } from "../../Helpers/Funciones";
 
 export const HookNewTransfers = () => {
   const tokenStore = useSelector((store) => store.user.session.api_token);
   const idUserStore = useSelector((store) => store.user.info.idUser);
+  const dispatch = useDispatch();
 
   const initialForm = {
     idTransfers: 0,
@@ -22,7 +25,7 @@ export const HookNewTransfers = () => {
   };
 
   const [form, setForm] = useState(initialForm);
-  const [file, setFiles] = useState(null);
+  const [file, setFile] = useState(null);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
@@ -70,13 +73,17 @@ export const HookNewTransfers = () => {
   const handleBlur = (e) => {
     handleChange(e);
     setErrors(validationsForm(form));
+    console.log(errors);
   };
 
   //Cuando presiono guardar
   const handleSubmit = (e) => {
+    console.log("entro");
     if (Object.keys(errors).length === 0) {
+      console.log("2222111");
       uploadFile();
     } else {
+      console.log("2222");
       seteaMensajePersonalizado(
         "Error",
         "Hay campos que ingresar en el formulario",
@@ -92,6 +99,8 @@ export const HookNewTransfers = () => {
     //Validacion Pais
     if (form.idCountry === "") {
       errors.idCountry = "Favor selecciona el pais.";
+      seteaMensaje("E", "Error: Campo Pais", errors.idCountry, 5000);
+      return errors;
     }
 
     //Validacion Banco
@@ -116,8 +125,22 @@ export const HookNewTransfers = () => {
     //Validacion Serie de la factura
     if (!form.serieInvoice.trim()) {
       errors.serieInvoice = "Dato requerido.";
+      seteaMensaje(
+        "E",
+        "Error: Campo Serie Factura",
+        errors.serieInvoice,
+        5000
+      );
+      return errors;
     } else if (!regExpresion.NUMBERYGUION.test(form.serieInvoice.trim())) {
       errors.serieInvoice = "Favor valide, Solo acepta numeros y Guion";
+      seteaMensaje(
+        "E",
+        "Error: Campo Serie de Factura",
+        errors.serieInvoice,
+        5000
+      );
+      return errors;
     }
 
     //Validacion del monto
@@ -125,26 +148,34 @@ export const HookNewTransfers = () => {
       //!form.amount > 0
       //errors.amount = "Solo acepta punto, valor debe ser mayor a cero.";
       errors.amount = "Dato requerido.";
+      seteaMensaje("E", "Error: Campo Monto", errors.amount, 5000);
+      return errors;
     } else if (!regExpresion.NUMBERFLOAT.test(form.amount)) {
       errors.amount = "Favor valide, Solo acepta numeros y punto";
+      seteaMensaje("E", "Error: Campo Monto", errors.amount, 5000);
+      return errors;
     }
 
     if (!regExpresion.NUMBERFLOAT.test(form.amount)) {
       errors.amount = "Favor valide, Solo acepta numeros y punto";
+      seteaMensaje("E", "Error: Campo Monto", errors.amount, 5000);
+      return errors;
     }
 
     //Validacion de la imagen
-    /*
-    if (!file) {
+    if (file === null) {
       errors.image = "Dato requerido.";
+      seteaMensaje("E", "Error: Campo Imagen", errors.image, 5000);
+      return errors;
     }
-*/
+
     return errors;
   };
 
   //guarda File
   const uploadFile = () => {
     //construir la Url de la| imagen y directorio
+    console.log("jjdjdj");
     const dateFile = new Date();
     const month =
       dateFile.getMonth() + 1 < 10
@@ -239,7 +270,8 @@ export const HookNewTransfers = () => {
         if (response.data.exito) {
           seteaMensajePersonalizado("Mensaje", response.data.msg, true, false);
           setForm(initialForm);
-          setFiles(null);
+          setErrors(null);
+          setFile(null);
         } else {
           seteaMensajePersonalizado(
             "Error",
@@ -256,10 +288,26 @@ export const HookNewTransfers = () => {
     setLoading(false);
   };
 
+  const seteaMensaje = (type, title, body, timeShow) => {
+    const message = {
+      type,
+      title,
+      date: getFechaActual(),
+      hour: getHoraActual(),
+      body,
+      timeShow,
+    };
+    //MENSAJE
+    dispatch({
+      type: TYPES_MESSAGE.SET_MESSAGE_SHOW,
+      payload: message,
+    });
+  };
+
   return {
     form,
     file,
-    setFiles,
+    setFile,
     errors,
     loading,
     alertaToast,

@@ -9,8 +9,8 @@ export const regExpresion = {
 };
 
 export const routesApi = {
-  API: "http://localhost:8000/api/",
-  IMAGEN: "http://localhost:8000/",
+  API: "http://192.168.1.22:8000/api/",
+  IMAGEN: "http://192.168.1.22:8000/",
 
   LANGUAGE: "---------------------LANGUAGE------------------",
   LANGUAGE_ALL: "language/all",

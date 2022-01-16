@@ -33,7 +33,7 @@ export const HookLogin = () => {
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(false);
   const [showMensaje, setShowMensaje] = useState(false);
-  const [mensaje, setMensaje] = useState({});
+  const [alertaFlotante, setAlertaFlotante] = useState(false);
   const [loadComponents, setLoadComponents] = useState(false);
 
   useEffect(() => {
@@ -96,7 +96,7 @@ export const HookLogin = () => {
       const session = userData.data.data.session;
       setErrorApi(false);
       seteaMensaje("S", "Login", "Success", 5000);
-
+      setAlertaFlotante(true);
       dispatch({
         type: TYPES_USER.SET_USER_LOGIN_INFO,
         payload: { info, session },
@@ -115,6 +115,7 @@ export const HookLogin = () => {
     } else {
       setErrorApi(true);
       seteaMensaje("E", "Error", userData.data.msg.errorInfo[2], 5000);
+      setAlertaFlotante(true);
     }
   }
 
@@ -305,8 +306,7 @@ export const HookLogin = () => {
     form,
     errors,
     loading,
-    showMensaje,
-    response,
+    alertaFlotante,
     handleChange,
     handleBlur,
     handleSubmit,

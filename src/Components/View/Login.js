@@ -21,8 +21,7 @@ const Login = () => {
     form,
     errors,
     loading,
-    mensaje,
-    response,
+    alertaFlotante,
     handleChange,
     handleBlur,
     handleSubmit,
@@ -34,8 +33,11 @@ const Login = () => {
   return (
     <>
       <Fondo />
-      {mensaje && <AlertaInformativa />}
-
+      {alertaFlotante && (
+        <>
+          <AlertaInformativa status={alertaFlotante} valor={Math.random()} />
+        </>
+      )}
       {loading && (
         <div className="loader">
           <Cargando />
@@ -43,7 +45,6 @@ const Login = () => {
       )}
       {/* Carga el componende de bienvenida */}
       {!loadComponents && <Welcome />}
-
       {/* Carga la ventana de login*/}
       {loadComponents && (
         <>

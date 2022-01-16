@@ -9,7 +9,7 @@ const NewTransfers = (props) => {
   const {
     form,
     file,
-    setFiles,
+    setFile,
     errors,
     loading,
     alertaToast,
@@ -193,7 +193,7 @@ const NewTransfers = (props) => {
                     <Form.Group className="mb-3">
                       <Form.Label>Imagen:</Form.Label>
                       <Form.Control
-                        onChange={() => setFiles(inputRef.current.files[0])}
+                        onChange={() => setFile(inputRef.current.files[0])}
                         ref={inputRef}
                         id="input"
                         type="file"
