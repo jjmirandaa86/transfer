@@ -7,12 +7,13 @@ import {
   Row,
   Image,
   Button,
-  Badge,
-  Table,
+  Tabs,
+  Tab,
 } from "react-bootstrap";
 import { HookTrasferSelect } from "../../Hook/HookTrasferSelect";
 import { routesApi } from "../../../Helpers/Constantes";
-import { getDateFormat } from "../../../Helpers/Funciones";
+import TransferSelectColaborador from "./TransferSelectColaborador";
+import TransferSelectTransferencia from "./TransferSelectTransferencia";
 
 const TransferSelect = (props) => {
   const infoStore = useSelector((store) => store.user.info);
@@ -29,15 +30,6 @@ const TransferSelect = (props) => {
   //Bank
   const bankStore = useSelector((store) => store.general.bank);
   const bankSelected = bankStore.find((bl) => bl.idBank === props.data.idBank);
-
-  //State
-  // const stateStore = useSelector((store) => store.general.state);
-  // const stateSelected = stateStore.find(
-  //   (bl) =>
-  //     bl.idCounrty === props.data.idCountry ||
-  //     bl.tableReference === "transfers" ||
-  //     bl.value === props.data.state
-  // );
 
   return (
     <>
@@ -88,73 +80,29 @@ const TransferSelect = (props) => {
                       </>
                     )}
                   </div>
-                  {aprobador && (
-                    <div style={{ "text-align": "left" }}>
-                      <Card>
-                        <Card.Header>Datos Colaborador</Card.Header>
-                        <Card.Body>
-                          <Row>
-                            <Col>Colaborador:</Col>
-                            <Col>{infoStore.idUser}</Col>
-                          </Row>
-                          <Row>
-                            <Col>Nombre:</Col>
-                            <Col>
-                              {infoStore.firtsName} {infoStore.lastName}
-                            </Col>
-                          </Row>
-                          <Row>
-                            <Col>Posición:</Col>
-                            <Col>{infoStore.position}</Col>
-                          </Row>
-                        </Card.Body>
-                      </Card>
-                    </div>
-                  )}
-                  <div style={{ "text-align": "left" }}>
-                    <Card>
-                      <Card.Header>Datos Transferencia</Card.Header>
-                      <Card.Body>
-                        <Row>
-                          <Col>Cliente:</Col>
-                          <Col>{props.data.idCustomer}</Col>
-                        </Row>
-                        <Row>
-                          <Col>Nombre:</Col>
-                          <Col>{props.data.nameCustomer}</Col>
-                        </Row>
-                        <Row>
-                          <Col>Banco|:</Col>
-                          <Col>{bankSelected.name}</Col>
-                        </Row>
-                        <Row>
-                          <Col>Monto:</Col>
-                          <Col>{props.data.amount}</Col>
-                        </Row>
-                        <Row>
-                          <Col>Ruta:</Col>
-                          <Col>{props.data.route}</Col>
-                        </Row>
-                        <Row>
-                          <Col>Estado:</Col>
-                          <Col>{props.data.state}</Col>
-                        </Row>
-                        <Row>
-                          <Col>Creción:</Col>
-                          <Col>{getDateFormat(props.data.created_at)}</Col>
-                        </Row>
-                      </Card.Body>
-                    </Card>
-                  </div>
-
-                  <Row>
-                    <Col xs={12} md={12}>
+                  <Tabs
+                    defaultActiveKey="img"
+                    id="uncontrolled-tab-example"
+                    className="mb-3"
+                  >
+                    <Tab eventKey="img" title="Imagen">
                       <Image
                         src={routesApi.IMAGEN + props.data.image}
                         width={zoomHeight}
                       />
-                    </Col>
-                  </Row>
+                    </Tab>
+                    {aprobador && (
+                      <Tab eventKey="col" title="Colaborador">
+                        <TransferSelectColaborador infoStore={infoStore} />
+                      </Tab>
+                    )}
+                    <Tab eventKey="tra" title="Transferencia">
+                      <TransferSelectTransferencia
+                        data={props.data}
+                        bankSelected={bankSelected}
+                      />
+                    </Tab>
+                  </Tabs>
                 </Card.Body>
               </Card>
             </div>

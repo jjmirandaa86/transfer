@@ -35,7 +35,7 @@ const Login = () => {
       <Fondo />
       {alertaFlotante && (
         <>
-          <AlertaInformativa status={alertaFlotante} valor={Math.random()} />
+          <AlertaInformativa status={alertaFlotante} />
         </>
       )}
       {loading && (

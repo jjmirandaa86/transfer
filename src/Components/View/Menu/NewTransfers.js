@@ -144,7 +144,7 @@ const NewTransfers = (props) => {
                     <Form.Group as={Col} controlId="formVoucher">
                       <Form.Label>Factura</Form.Label>
                       <Form.Control
-                        type="number"
+                        type="text"
                         placeholder="Ingrese la serie de la factura"
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -179,7 +179,6 @@ const NewTransfers = (props) => {
                         onBlur={handleBlur}
                         name="route"
                         value={form.route}
-                        autoFocus
                       >
                         <option key={0} value={0}>
                           {"Selecciona Ruta"}
@@ -195,7 +194,8 @@ const NewTransfers = (props) => {
                       <Form.Control
                         onChange={() => setFile(inputRef.current.files[0])}
                         ref={inputRef}
-                        id="input"
+                        onBlur={handleBlur}
+                        id="input-image"
                         type="file"
                         size="sm"
                       />
@@ -227,34 +227,3 @@ const NewTransfers = (props) => {
 };
 
 export default NewTransfers;
-
-// import { HookNewExpensive } from "../../Hook/HookNewExpensive";
-// import Cargando from "../share/Cargando";
-// import AlertaInformativa from "../share/AlertaInformativa";
-
-// const NewExpensive = (props) => {
-
-//   return (
-//     <>
-//       {alertaToast.estado && (
-//         <AlertaInformativa
-//           titulo={alertaToast.titulo}
-//           fechaHora={alertaToast.fechaHora}
-//           mensaje={alertaToast.mensaje}
-//           estado={alertaToast.estado}
-//           iconoError={alertaToast.iconoError}
-//         />
-//       )}
-//       {loading && (
-//         <div className="loader">
-//           <Cargando />
-//         </div>
-//       )}
-//       {!loading && (
-
-//       )}
-//     </>
-//   );
-// };
-
-// export default NewExpensive;

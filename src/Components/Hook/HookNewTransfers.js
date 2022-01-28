@@ -78,12 +78,10 @@ export const HookNewTransfers = () => {
 
   //Cuando presiono guardar
   const handleSubmit = (e) => {
-    console.log("entro");
+    console.log(errors);
     if (Object.keys(errors).length === 0) {
-      console.log("2222111");
       uploadFile();
     } else {
-      console.log("2222");
       seteaMensajePersonalizado(
         "Error",
         "Hay campos que ingresar en el formulario",
@@ -95,12 +93,12 @@ export const HookNewTransfers = () => {
 
   const validationsForm = (form) => {
     let errors = {};
-
+    console.log("datos del formulario");
+    console.log(form);
     //Validacion Pais
     if (form.idCountry === "") {
       errors.idCountry = "Favor selecciona el pais.";
       seteaMensaje("E", "Error: Campo Pais", errors.idCountry, 5000);
-      return errors;
     }
 
     //Validacion Banco
@@ -123,6 +121,7 @@ export const HookNewTransfers = () => {
     }
 
     //Validacion Serie de la factura
+    /*
     if (!form.serieInvoice.trim()) {
       errors.serieInvoice = "Dato requerido.";
       seteaMensaje(
@@ -131,16 +130,17 @@ export const HookNewTransfers = () => {
         errors.serieInvoice,
         5000
       );
-      return errors;
-    } else if (!regExpresion.NUMBERYGUION.test(form.serieInvoice.trim())) {
-      errors.serieInvoice = "Favor valide, Solo acepta numeros y Guion";
+    } else 
+    */
+    if (!regExpresion.NUMBERYGUION.test(form.serieInvoice.trim())) {
+      errors.serieInvoice =
+        "Favor valide, campo vacio y solo acepta numeros y Guion";
       seteaMensaje(
         "E",
         "Error: Campo Serie de Factura",
         errors.serieInvoice,
         5000
       );
-      return errors;
     }
 
     //Validacion del monto
@@ -149,24 +149,23 @@ export const HookNewTransfers = () => {
       //errors.amount = "Solo acepta punto, valor debe ser mayor a cero.";
       errors.amount = "Dato requerido.";
       seteaMensaje("E", "Error: Campo Monto", errors.amount, 5000);
-      return errors;
     } else if (!regExpresion.NUMBERFLOAT.test(form.amount)) {
       errors.amount = "Favor valide, Solo acepta numeros y punto";
       seteaMensaje("E", "Error: Campo Monto", errors.amount, 5000);
-      return errors;
     }
 
     if (!regExpresion.NUMBERFLOAT.test(form.amount)) {
       errors.amount = "Favor valide, Solo acepta numeros y punto";
       seteaMensaje("E", "Error: Campo Monto", errors.amount, 5000);
-      return errors;
     }
+
+    console.log("imagen");
+    console.log(file);
 
     //Validacion de la imagen
     if (file === null) {
       errors.image = "Dato requerido.";
       seteaMensaje("E", "Error: Campo Imagen", errors.image, 5000);
-      return errors;
     }
 
     return errors;
@@ -270,7 +269,7 @@ export const HookNewTransfers = () => {
         if (response.data.exito) {
           seteaMensajePersonalizado("Mensaje", response.data.msg, true, false);
           setForm(initialForm);
-          setErrors(null);
+          setErrors({});
           setFile(null);
         } else {
           seteaMensajePersonalizado(
