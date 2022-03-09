@@ -5,7 +5,8 @@ import IconButton from "../Share/IconButton";
 import { HookFindTransfers } from "../../Hook/HookFindTransfers";
 
 const FindTransfers = (props) => {
-  const { handleSave, handleChange, filter } = HookFindTransfers();
+  const { handleSave, handleChange, handleReset, handleBlur, filter } =
+    HookFindTransfers();
 
   const appStore = useSelector((store) => store.general.app);
 
@@ -72,7 +73,10 @@ const FindTransfers = (props) => {
   });
 
   //State
-  const stateStore = useSelector((store) => store.general.states);
+  let stateStore = useSelector((store) => store.general.states);
+  stateStore = stateStore.filter(
+    (el) => el.tableReference.toUpperCase() === "transfers".toUpperCase()
+  );
   const listStates = stateStore.map((el) => {
     return (
       <option key={el.id} value={el.id}>
@@ -96,158 +100,163 @@ const FindTransfers = (props) => {
           <Card.Body>
             <Container>
               <Card.Text>
-                <Row sm="auto" className="mb-3">
-                  <Col sm={6}>
-                    <Form.Group controlId="formFechaInicial">
-                      <Form.Label>Fecha Inicial:</Form.Label>
-                      <Form.Control
-                        id="floatingInputDateInvoice"
-                        type="date"
-                        name="dateInitial"
-                      />
-                    </Form.Group>
-                  </Col>
-                  <Col sm={6}>
-                    <Form.Group controlId="formFechaFinal">
-                      <Form.Label>Fecha Final:</Form.Label>
-                      <Form.Control
-                        id="floatingInputDateInvoice"
-                        type="date"
-                        name="dateFinal"
-                      />
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Row sm="auto" className="mb-3">
-                  <Col sm={6}>
-                    <Form.Group controlId="formCountry">
-                      <Form.Label>Pais:</Form.Label>
-                      <Form.Control
-                        as={"select"}
-                        // onChange={handleChange}
-                        // onBlur={handleBlur}
-                        name="idCountry"
-                        value={filter.idCountry}
-                        autoFocus
-                      >
-                        <option key={""} value={""}>
-                          {"Selecciona  Pais"}
-                        </option>
-                        {listCountry}
-                      </Form.Control>
-                    </Form.Group>
-                  </Col>
-                  <Col sm={6}>
-                    <Form.Group controlId="formRegion" sm={6}>
-                      <Form.Label>Region:</Form.Label>
-                      <Form.Control
-                        as={"select"}
-                        // onChange={handleChange}
-                        // onBlur={handleBlur}
-                        name="idRegion"
-                        // value={form.idRegion}
-                      >
-                        <option key={0} value={0}>
-                          {"Selecciona Region"}
-                        </option>
-                        {listRegion}
-                      </Form.Control>
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Row sm="auto" className="mb-3">
-                  <Col sm={6}>
-                    <Form.Group controlId="formCenter">
-                      <Form.Label>Centro:</Form.Label>
-                      <Form.Control
-                        as={"select"}
-                        // onChange={handleChange}
-                        // onBlur={handleBlur}
-                        name="idCenter"
-                        // value={form.idCenter}
-                      >
-                        <option key={""} value={""}>
-                          {"Selecciona Centro"}
-                        </option>
-                        {listCentro}
-                      </Form.Control>
-                    </Form.Group>
-                  </Col>
-                  <Col sm={6}>
-                    <Form.Group controlId="formOffice" sm={6}>
-                      <Form.Label>Oficina:</Form.Label>
-                      <Form.Control
-                        as={"select"}
-                        // onChange={handleChange}
-                        // onBlur={handleBlur}
-                        name="idOffice"
-                        // value={form.idOffice}
-                      >
-                        <option key={0} value={0}>
-                          {"Selecciona Oficina"}
-                        </option>
-                        {listOficina}
-                      </Form.Control>
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Row sm="auto" className="mb-3">
-                  <Col sm={6}>
-                    <Form.Group controlId="formRoute">
-                      <Form.Label>Ruta:</Form.Label>
-                      <Form.Control
-                        as={"select"}
-                        // onChange={handleChange}
-                        // onBlur={handleBlur}
-                        name="idRoute"
-                        // value={form.idRoute}
-                      >
-                        <option key={""} value={""}>
-                          {"Selecciona Ruta"}
-                        </option>
-                        {listRoute}
-                      </Form.Control>
-                    </Form.Group>
-                  </Col>
-                  <Col sm={6}>
-                    <Form.Group controlId="formBank" sm={6}>
-                      <Form.Label>Banco:</Form.Label>
-                      <Form.Control
-                        as={"select"}
-                        // onChange={handleChange}
-                        // onBlur={handleBlur}
-                        name="idBank"
-                        // value={form.idBank}
-                      >
-                        <option key={0} value={0}>
-                          {"Selecciona Banco"}
-                        </option>
-                        {listBank}
-                      </Form.Control>
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Row sm="auto" className="mb-3">
-                  <Col sm={6}>
-                    <Form.Group controlId="formState" sm={6}>
-                      <Form.Label>Estado Transferencia:</Form.Label>
-                      <Form.Control
-                        as={"select"}
-                        // onChange={handleChange}
-                        // onBlur={handleBlur}
-                        name="idstate"
-                        // value={form.idstate}
-                      >
-                        <option key={0} value={0}>
-                          {"Selecciona Estado"}
-                        </option>
-                        {listStates}
-                      </Form.Control>
-                    </Form.Group>
-                  </Col>
-                  <Col sm={3}></Col>
-                  <Col sm={3}></Col>
-                </Row>
+                <Form>
+                  <Row sm="auto" className="mb-3">
+                    <Col sm={6}>
+                      <Form.Group controlId="findFechaInicial">
+                        <Form.Label>Fecha Inicial:</Form.Label>
+                        <Form.Control
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          type="date"
+                          name="dateStart"
+                          value={filter.dateStart}
+                          autoFocus
+                        />
+                      </Form.Group>
+                    </Col>
+                    <Col sm={6}>
+                      <Form.Group controlId="findFechaFinal">
+                        <Form.Label>Fecha Final:</Form.Label>
+                        <Form.Control
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          type="date"
+                          name="dateEnd"
+                          value={filter.dateEnd}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row sm="auto" className="mb-3">
+                    <Col sm={6}>
+                      <Form.Group controlId="findCountry">
+                        <Form.Label>Pais:</Form.Label>
+                        <Form.Control
+                          as={"select"}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="idCountry"
+                          value={filter.idCountry}
+                        >
+                          <option key={""} value={""}>
+                            {"Selecciona  Pais"}
+                          </option>
+                          {listCountry}
+                        </Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col sm={6}>
+                      <Form.Group controlId="findRegion" sm={6}>
+                        <Form.Label>Region:</Form.Label>
+                        <Form.Control
+                          as={"select"}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="idRegion"
+                          value={filter.idRegion}
+                        >
+                          <option key={0} value={0}>
+                            {"Selecciona Region"}
+                          </option>
+                          {listRegion}
+                        </Form.Control>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+
+                  <Row sm="auto" className="mb-3">
+                    <Col sm={6}>
+                      <Form.Group controlId="findCenter">
+                        <Form.Label>Centro:</Form.Label>
+                        <Form.Control
+                          as={"select"}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="idCenter"
+                          value={filter.idCenter}
+                        >
+                          <option key={""} value={""}>
+                            {"Selecciona Centro"}
+                          </option>
+                          {listCentro}
+                        </Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col sm={6}>
+                      <Form.Group controlId="findOffice" sm={6}>
+                        <Form.Label>Oficina:</Form.Label>
+                        <Form.Control
+                          as={"select"}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="idOffice"
+                          value={filter.idOffice}
+                        >
+                          <option key={0} value={0}>
+                            {"Selecciona Oficina"}
+                          </option>
+                          {listOficina}
+                        </Form.Control>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row sm="auto" className="mb-3">
+                    <Col sm={6}>
+                      <Form.Group controlId="findRoute">
+                        <Form.Label>Ruta:</Form.Label>
+                        <Form.Control
+                          as={"select"}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="idRoute"
+                          value={filter.idRoute}
+                        >
+                          <option key={""} value={""}>
+                            {"Selecciona Ruta"}
+                          </option>
+                          {listRoute}
+                        </Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col sm={6}>
+                      <Form.Group controlId="findBank" sm={6}>
+                        <Form.Label>Banco:</Form.Label>
+                        <Form.Control
+                          as={"select"}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="idBank"
+                          value={filter.idBank}
+                        >
+                          <option key={0} value={0}>
+                            {"Selecciona Banco"}
+                          </option>
+                          {listBank}
+                        </Form.Control>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row sm="auto" className="mb-3">
+                    <Col sm={6}>
+                      <Form.Group controlId="findState" sm={6}>
+                        <Form.Label>Estado Transferencia:</Form.Label>
+                        <Form.Control
+                          as={"select"}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="idState"
+                          value={filter.idState}
+                        >
+                          <option key={0} value={0}>
+                            {"Selecciona Estado"}
+                          </option>
+                          {listStates}
+                        </Form.Control>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                </Form>
               </Card.Text>
               <div className="d-grid gap-2" style={{ padding: 10 }}>
                 <IconButton
@@ -256,6 +265,14 @@ const FindTransfers = (props) => {
                   handleButton={() => {
                     handleSave();
                     props.setShowWindow("M");
+                  }}
+                  size={"sm"}
+                />
+                <IconButton
+                  img={appStore.ico + "reset.svg"}
+                  title={"Reset"}
+                  handleButton={() => {
+                    handleReset();
                   }}
                   size={"sm"}
                 />

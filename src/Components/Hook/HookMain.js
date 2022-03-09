@@ -3,10 +3,10 @@ import { Redirect } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  getHoraActual,
-  getFechaActual,
   getPrimerDiaMes,
   getUltimoDiaMes,
+  getHoraActual,
+  getFechaActual,
 } from "../../Helpers/Funciones";
 import { routesApi } from "../../Helpers/Constantes";
 import { TYPES as TYPES_GENERAL } from "../../Library/Redux/Actions/generalActions";
@@ -266,16 +266,16 @@ export const HookMain = () => {
           payload: data,
         });
 
-        const filtro = {
-          dateInit: getPrimerDiaMes(),
+        const initialStateFilter = {
+          dateStart: getPrimerDiaMes(),
           dateEnd: getUltimoDiaMes(),
-          countrySelect: "",
-          regionSelect: 0,
-          centerSelect: "",
-          officeSelect: "",
-          routeSelect: 0,
-          bankSelect: 0,
-          stateTransferSelect: 0,
+          idCountry: "",
+          idRegion: 0,
+          idCenter: "",
+          idOffice: 0,
+          idRoute: "",
+          idBank: 0,
+          idState: 0,
         };
 
         // ===============================
@@ -283,7 +283,7 @@ export const HookMain = () => {
         // ===============================
         dispatch({
           type: TYPES_GENERAL.SET_GENERAL_FILTER,
-          payload: filtro,
+          payload: initialStateFilter,
         });
 
         setLoadAll(true);

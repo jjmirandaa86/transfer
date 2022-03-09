@@ -2,15 +2,15 @@ import { TYPES } from "../Actions/generalActions";
 
 export const generalInitialState = {
   filter: {
-    dateInit: null,
+    dateStart: null,
     dateEnd: null,
-    countrySelect: null,
-    regionSelect: null,
-    centerSelect: null,
-    officeSelect: null,
-    routeSelect: null,
-    bankSelect: null,
-    stateTransferSelect: null,
+    idCountry: null,
+    idRegion: null,
+    idCenter: null,
+    idOffice: null,
+    idRoute: null,
+    idBank: null,
+    idState: null,
   },
   location: {
     country: [],

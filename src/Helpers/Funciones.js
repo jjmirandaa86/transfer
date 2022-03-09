@@ -48,11 +48,25 @@ export const getDateFormat = (date) => {
 };
 
 export const getPrimerDiaMes = () => {
-  var date = new Date();
-  return new Date(date.getFullYear(), date.getMonth(), 1);
+  let date = new Date();
+  date = new Date(date.getFullYear(), date.getMonth(), 1);
+  return (
+    date.getFullYear() +
+    "-" +
+    ("0" + (date.getMonth() + 1)).slice(-2) +
+    "-" +
+    ("0" + date.getDate()).slice(-2)
+  );
 };
 
 export const getUltimoDiaMes = () => {
-  var date = new Date();
-  return new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  let date = new Date();
+  date = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  return (
+    date.getFullYear() +
+    "-" +
+    ("0" + (date.getMonth() + 1)).slice(-2) +
+    "-" +
+    ("0" + date.getDate()).slice(-2)
+  );
 };

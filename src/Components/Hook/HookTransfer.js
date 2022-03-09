@@ -6,6 +6,7 @@ import { routesApi } from "../../Helpers/Constantes";
 export const HookTransfer = (props) => {
   const token = useSelector((store) => store.user.session.api_token);
   const idUser = useSelector((store) => store.user.info.idUser);
+  const filter = useSelector((store) => store.general.filter);
 
   const [dato, setDato] = useState([]);
   const [url, setUrl] = useState(
